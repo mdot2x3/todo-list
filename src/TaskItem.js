@@ -7,4 +7,9 @@ export class TaskItem {
         this.notes = notes;
         this.checkbox = false;
     }
+
+    toggleCheckbox() {
+        //calling this will flip its boolean value
+        this.checkbox = !this.checkbox;
+    }
 }

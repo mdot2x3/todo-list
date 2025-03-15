@@ -1,6 +1,7 @@
 export class TaskList {
-    constructor(id, projectId) {
+    constructor(id, title, projectId) {
         this.id = id;
+        this.title = title;
         this.projectId = projectId;
         this.taskListArray = [];
     }
@@ -8,5 +9,12 @@ export class TaskList {
     addTaskItem(taskItem) {
         this.taskListArray.push(taskItem);
     }
-    
+
+    removeTaskItem(taskItemTitle) {
+        this.taskListArray = this.taskListArray.filter(arrayElement => arrayElement.title !== taskItemId);
+    }
+
+    getTaskItemById(taskItemTitle) {
+        return this.taskListArray.find(arrayElement => arrayElement.title === taskItemId);
+    }
 }

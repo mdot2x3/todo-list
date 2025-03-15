@@ -12,4 +12,13 @@ export class Project {
         this.projectArray.push(taskList);
     }
 
+    removeTaskList(taskListId) {
+        //filter creates a new array (set to overwrite the prior one in this case),
+        //and is filled with elements that pass the test provided by the function
+        this.projectArray = this.projectArray.filter(arrayElement => arrayElement.id !== taskListId);
+    }
+
+    getTaskListById(taskListId) {
+        return this.projectArray.find(arrayElement => arrayElement.id === taskListId);
+    }
 }

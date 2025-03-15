@@ -1,3 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 body {
   background-color: rebeccapurple;
 }
+
+nav ul {
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  list-style-type: none;
+}
+

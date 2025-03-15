@@ -7,7 +7,41 @@
 </head>
 
 <body>
-
+  <header>
+    <nav>
+      <ul>
+        <li class="selected">Home</li>
+        <li>Archived</li>
+        <li>About</li>
+      </ul>
+      <div class="spacer"></div>
+    </nav>
+  </header>
+  <div class="modalDiv">
+    <button id="addProjectButton">+</button>
+    <dialog>
+      <form action="" id="modalForm" novalidate>
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br>
+        <label for="description">Description:</label><br>
+        <input type="text" id="description" name="description" required><br>
+        <label for="dueDate">Due Date:</label><br>
+        <input type="datetime-local" id="dueDate" name="dueDate" required min="1"><br>
+        <label for="priority">Priority Level:</label>
+        <select id="priority" name="priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+          <option value="urgent">Urgent</option>
+        </select>
+      </form>
+      <div class="buttonDiv">
+        <button id="closeButton" autofocus>Close</button>
+        <button id="submitButton">Submit</button>
+      </div>
+    </dialog>
+  </div>
+  <div id="content">  <!-- DOM content inserted here -->  </div>
 </body>
 
 </html>
