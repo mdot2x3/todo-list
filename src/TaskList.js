@@ -3,18 +3,18 @@ export class TaskList {
         this.id = crypto.randomUUID();
         this.title = title;
         this.projectId = projectId;
-        this.taskListArray = [];
+        this.taskListArrayOfTaskItems = [];
     }
 
     addTaskItem(taskItem) {
-        this.taskListArray.push(taskItem);
+        this.taskListArrayOfTaskItems.push(taskItem);
     }
 
     removeTaskItem(taskItemId) {
-        this.taskListArray = this.taskListArray.filter(arrayElement => arrayElement.title !== taskItemId);
+        this.taskListArrayOfTaskItems = this.taskListArrayOfTaskItems.filter(arrayElement => arrayElement.title !== taskItemId);
     }
 
     getTaskItemById(taskItemId) {
-        return this.taskListArray.find(arrayElement => arrayElement.title === taskItemId);
+        return this.taskListArrayOfTaskItems.find(arrayElement => arrayElement.title === taskItemId);
     }
 }
