@@ -1,6 +1,6 @@
 export class TaskItem {
-    // set taskListId null to create a TaskItem without specifying taskListId upfront,
-    // set notes to "" to allow the parameter field to be optional, if empty it will skip past it
+    //set taskListId null to create a TaskItem without specifying taskListId upfront,
+    //set notes to "" to allow the parameter field to be optional, if empty it will skip past it
     constructor(title, description, dueDate, priority, notes = "", taskListId = null) {
         //auto-generate unique id
         this.id = crypto.randomUUID();

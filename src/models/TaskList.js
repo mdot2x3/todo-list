@@ -11,7 +11,7 @@ export class TaskList {
     }
 
     removeTaskItem(taskItemId) {
-        this.taskListArrayOfTaskItems = this.taskListArrayOfTaskItems.filter(arrayElement => arrayElement.title !== taskItemId);
+        this.taskListArrayOfTaskItems = this.taskListArrayOfTaskItems.filter(arrayElement => arrayElement.id !== taskItemId);
     }
 
     getTaskItemById(taskItemId) {

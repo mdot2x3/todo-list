@@ -19,6 +19,20 @@ export function addTaskListToProject(projectId, taskList) {
     }
 }
 
+export function removeTaskListFromProject(taskList) {
+    //.some() is an array method that checks if at least one element in the array meets the provided condition, returns true/false
+    //.find()+.some() iterates over each taskList inside each project's projectArrayOfTaskLists, checks if any TaskList has an id
+    //matching taskListId, and if so, returns that project object
+    const project = projectStorage.find((arrayElement) => arrayElement.projectArrayOfTaskLists.some((arrayElementTaskList) => arrayElementTaskList.id === taskList.id));
+    if (project) {
+        // utilize Project class method
+        project.removeTaskList(taskList.id);
+        console.log(`Task List "${taskList.title}" removed from Project: "${project.title}".`);
+    } else {
+        console.log(`Task List with ID "${taskList.id}" not found.`);
+    }
+}
+
 export function viewAllProjects() {
     projectStorage.forEach((arrayElementProject) => {
         console.log(`Project: ${arrayElementProject.title}`);
