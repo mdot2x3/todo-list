@@ -44,3 +44,12 @@ export function viewAllProjects() {
         });
     });
 }
+
+export function deleteProject(productId) {
+    const project = projectStorage.find(arrayElement => arrayElement.id === productId);
+    if (project) {
+        project.removeProject();
+    } else {
+        console.log(`Project with ID "${projectId}" not found.`);
+    }
+}
