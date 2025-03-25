@@ -16,7 +16,7 @@ nav ul {
   list-style-type: none;
 }
 
-.modalDiv {
+.addProjectDiv {
   display: grid;
   justify-content: center;
   padding: 25px;

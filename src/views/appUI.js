@@ -1,18 +1,21 @@
+import { projectFormSubmission } from "./formHandler.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
 const dialog = document.querySelector("dialog");
-const addProjectButton = document.querySelector("#addProjectButton");
-const closeAddProjectModal = dialog.querySelector("#closeButton");
+const openAddProject = document.querySelector("#openAddProject");
+const closeAddProject = dialog.querySelector("#closeAddProject");
+const submitAddProject = dialog.querySelector("#submitAddProject");
 const inputs = dialog.querySelectorAll("input");
 const selectDropDown = dialog.querySelector("#priority");
 
 // open input modal on button click
-addProjectButton.addEventListener("click", () => {
+openAddProject.addEventListener("click", () => {
     dialog.showModal();
 });
 
 // close input modal on button click
-closeAddProjectModal.addEventListener("click", () => {
+closeAddProject.addEventListener("click", () => {
     dialog.close();
 });
 
@@ -20,11 +23,14 @@ closeAddProjectModal.addEventListener("click", () => {
 dialog.addEventListener("close", () => {
     inputs.forEach(input => {
         input.value = "";
-        selectDropDown.selectedIndex = 0;
-    })
+    });
+    selectDropDown.selectedIndex = 0;
 });
 
-
+// listen for submit, normally .addEventListener("click", projectFormSubmission) would suffice, but
+// because we want to share the "dialog" DOM querySelection with the function in addition to the click event,
+// we can structure it like so to send both...
+submitAddProject.addEventListener("click", (event) => projectFormSubmission(event, dialog));
 
 
 });

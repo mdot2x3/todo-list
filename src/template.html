@@ -18,16 +18,16 @@
     </nav>
   </header>
 
-  <div class="modalDiv">
-    <button id="addProjectButton">+</button>
+  <div class="addProjectDiv">
+    <button id="openAddProject">+</button>
     <dialog>
-      <form action="" id="modalForm" novalidate>
+      <form action="" id="addProjectForm" novalidate>
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" required><br>
         <label for="description">Description:</label><br>
         <input type="text" id="description" name="description" required><br>
         <label for="dueDate">Due Date:</label><br>
-        <input type="datetime-local" id="dueDate" name="dueDate" required min="1"><br>
+        <input type="date" id="dueDate" name="dueDate" required min="1"><br>
         <label for="priority">Priority Level:</label>
         <select id="priority" name="priority">
           <option value="low">Low</option>
@@ -37,8 +37,8 @@
         </select>
       </form>
       <div class="buttonDiv">
-        <button id="closeButton" autofocus>Close</button>
-        <button id="submitButton">Submit</button>
+        <button id="closeAddProject" autofocus>Close</button>
+        <button id="submitAddProject">Submit</button>
       </div>
     </dialog>
   </div>
