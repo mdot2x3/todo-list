@@ -1,4 +1,5 @@
 import "./style.css";
+import "./views/appUI.js";
 import { createProject, deleteProject, removeTaskListFromProject, viewAllProjects } from "./controllers/projectController.js";
 import { createTaskList, removeTaskItemFromTaskList } from "./controllers/taskListController.js";
 import { createTaskItem } from "./controllers/taskItemController.js";

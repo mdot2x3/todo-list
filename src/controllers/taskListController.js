@@ -10,16 +10,16 @@ export function createTaskList(title, projectId) {
 
 export function addTaskItemToTaskList(taskListId, taskItem) {
     for (const project of projectStorage) {
-        //utilize Project class method
+        // utilize Project class method
         const taskList = project.getTaskListById(taskListId);
         if (taskList) {
-            //utilize TaskList class method
+            // utilize TaskList class method
             taskList.addTaskItem(taskItem);
             console.log(`Task Item "${taskItem.title}" added to Task List: "${taskList.title}".`);
             return;
         }
     }
-    //else
+    // else
     console.log(`Task List with ID ${taskListId} not found.`);
 }
 
@@ -29,7 +29,7 @@ export function removeTaskItemFromTaskList(taskListId, taskItemId) {
         if (taskList) {
             const taskItem = taskList.taskListArrayOfTaskItems.find((arrayElementTaskItem) => arrayElementTaskItem.id === taskItemId);
             if (taskItem) {
-                //utilize TaskList class method
+                // utilize TaskList class method
                 taskList.removeTaskItem(taskItemId);
                 console.log(`Task Item with ID "${taskItemId}" removed from Task List: "${taskList.title}".`);
             } else {
@@ -38,6 +38,6 @@ export function removeTaskItemFromTaskList(taskListId, taskItemId) {
             return;
         }
     }
-    //else
+    // else
     console.log(`Task List with ID ${taskListId} not found.`);
 }

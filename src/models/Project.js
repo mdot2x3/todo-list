@@ -15,8 +15,8 @@ export class Project {
     }
 
     removeTaskList(taskListId) {
-        //filter creates a new array (set to overwrite the prior one in this case),
-        //and is filled with elements that pass the test provided by the function
+        // filter creates a new array (set to overwrite the prior one in this case),
+        // and is filled with elements that pass the test provided by the function
         this.projectArrayOfTaskLists = this.projectArrayOfTaskLists.filter(arrayElement => arrayElement.id !== taskListId);
     }
 

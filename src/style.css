@@ -16,3 +16,15 @@ nav ul {
   list-style-type: none;
 }
 
+.modalDiv {
+  display: grid;
+  justify-content: center;
+  padding: 25px;
+}
+
+dialog {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} 
