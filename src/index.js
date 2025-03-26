@@ -4,6 +4,7 @@ import { createProject, deleteProject, removeTaskListFromProject, viewAllProject
 import { createTaskList, removeTaskItemFromTaskList } from "./controllers/taskListController.js";
 import { createTaskItem } from "./controllers/taskItemController.js";
 
+/*
 // test data
 const project1 = createProject("Project 1", "Project description", "3/10/2025", "High");
 const project2 = createProject("Project 2", "Project description", "3/11/2025", "Medium");
@@ -20,3 +21,4 @@ removeTaskListFromProject(tasklist2);
 deleteProject(project2.id);
 
 viewAllProjects();
+*/

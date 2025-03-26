@@ -1,4 +1,6 @@
 import { projectFormSubmission } from "./formHandler.js";
+import { projectStorage } from "../models/projectStorage.js";
+import { createProjectCard } from "./cardGenerator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -27,6 +29,10 @@ addProjectDialog.addEventListener("close", () => {
 
 // listen for addProject submit, run formHandler.js function
 submitAddProject.addEventListener("click", projectFormSubmission);
+
+// load any saved projects in projectStorage as cards, even on refresh
+projectStorage.forEach(createProjectCard);
+
 
 
 });

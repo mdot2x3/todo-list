@@ -1,5 +1,6 @@
 import { createProject, viewAllProjects } from "../controllers/projectController.js";
 import { projectStorage } from "../models/projectStorage.js";
+import { createProjectCard } from "./cardGenerator.js";
 
 export function projectFormSubmission(event) {
     // prevent page reload on submit
@@ -28,6 +29,9 @@ export function projectFormSubmission(event) {
     viewAllProjects();
     // view table of all current project data stored
     console.table(projectStorage);
+
+    // generate a UI card
+    createProjectCard(title, description, dueDate, priority);
     
     addProjectDialog.close();
 }
