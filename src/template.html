@@ -20,16 +20,16 @@
 
   <div class="addProjectDiv">
     <button id="openAddProject">+</button>
-    <dialog>
+    <dialog id="addProjectDialog">
       <form action="" id="addProjectForm" novalidate>
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" required><br>
-        <label for="description">Description:</label><br>
-        <input type="text" id="description" name="description" required><br>
-        <label for="dueDate">Due Date:</label><br>
-        <input type="date" id="dueDate" name="dueDate" required min="1"><br>
-        <label for="priority">Priority Level:</label>
-        <select id="priority" name="priority">
+        <label for="projectTitle">Title:</label><br>
+        <input type="text" id="projectTitle" name="title" required><br>
+        <label for="projectDescription">Description:</label><br>
+        <input type="text" id="projectDescription" name="description" required><br>
+        <label for="projectDueDate">Due Date:</label><br>
+        <input type="date" id="projectDueDate" name="dueDate" required min="1"><br>
+        <label for="projectPriority">Priority Level:</label>
+        <select id="projectPriority" name="priority">
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>

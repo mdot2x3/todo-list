@@ -22,7 +22,7 @@ nav ul {
   padding: 25px;
 }
 
-dialog {
+#addProjectDialog {
   position: absolute;
   top: 35%;
   left: 50%;
