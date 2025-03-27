@@ -8,11 +8,13 @@ export function createProjectCard(title, description, dueDate, priority) {
 
     // add project details to card
     card.innerHTML = `
-        <h3>${title}</h3>
+        <div class="projectCardHeader">
+            <h3>${title}</h3>
+            <button id="deleteProject">x</button>
+        </div>
         <p>${description}</p>
         <p><strong>Due Date:</strong> ${dueDate}</p>
         <p><strong>Priority:</strong> ${priority}</p>
-        <button id="deleteProject">Delete</button>
     `;
 
     // delete card

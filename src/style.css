@@ -18,7 +18,8 @@ nav ul {
 
 #content {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 125px);
+  grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: center;
   gap: 10px;
 }
 
@@ -36,6 +37,67 @@ nav ul {
 }
 
 .projectCard {
-  border: 2px dotted lawngreen;
-  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 200px;
+  padding: 10px;
+  background: white;
+  border: 2px solid lawngreen;
+  border-radius: 8px;
+  /* needed for delete button positioning */
+  position: relative;
+  /* prevents card size expanding */
+  overflow: hidden;
+}
+
+/* ensure text inside the card is left-aligned and 
+does not stretch beyond its container */
+.projectCard h3,
+.projectCard p {
+  margin: 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* header section (title + delete button) */
+.projectCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* prevents stretching */
+  overflow: hidden;
+}
+
+/* prevent overlap of title with delete button */
+.projectCardHeader h3 {
+  max-width: 80%; 
+}
+
+/* style the delete button */
+#deleteProject {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+#deleteProject:hover {
+  background: darkred;
 }
