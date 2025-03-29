@@ -5,6 +5,10 @@
 
 body {
   background-color: rebeccapurple;
+  /* ensure the page is at least the full viewport */
+  min-height: 100vh;
+  /* allow scrolling */
+  overflow-y: auto;
 }
 
 nav ul {
@@ -123,14 +127,15 @@ does not stretch beyond its container */
 .projectCard.expanded {
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 50%;
+  position: absolute;
+  /* buffer card start from viewport top edge */
+  top: 10vh;
   left: 50%;
-  transform: translate(-50%, -50%);
+  /* centers the card horizontally(-50%) but prevents vertical centering(0%) so it grows downward with the content */
+  transform: translate(-50%, 0%);
+  height: auto;
   width: 60vw;
   max-width: 500px;
-  /* limit height to avoid overflow beyond the screen */
-  max-height: 80vh;
   z-index: 10;
   background: white;
   padding: 20px;
@@ -149,13 +154,4 @@ does not stretch beyond its container */
   text-overflow: clip;
   /* ensures long words don't overflow */
   word-wrap: break-word;
-}
-
-/* allow only the body content of the project card to scroll */
-.projectCardBody {
-  overflow-y: auto;
-  /* adjust based on title height */
-  max-height: calc(80vh - 50px);
-  /* prevents text from touching the scrollbar */
-  padding-right: 10px;
 }
