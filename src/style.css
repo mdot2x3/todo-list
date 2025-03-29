@@ -49,6 +49,9 @@ nav ul {
   position: relative;
   /* prevents card size expanding */
   overflow: hidden;
+  /* expanded card styling properties */
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 /* ensure text inside the card is left-aligned and 
@@ -69,8 +72,11 @@ does not stretch beyond its container */
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  /* prevents stretching */
-  overflow: hidden;
+  /* make sure header stays fixed on card expansion */
+  padding-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 /* prevent overlap of title with delete button */
@@ -100,4 +106,56 @@ does not stretch beyond its container */
 
 #deleteProject:hover {
   background: darkred;
+}
+
+/* modal-like background effect */
+.modalOpen::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.projectCard.expanded {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw;
+  max-width: 500px;
+  /* limit height to avoid overflow beyond the screen */
+  max-height: 80vh;
+  z-index: 10;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* OVERRIDE: prevent text truncation on expanded card*/
+.projectCard.expanded h3,
+.projectCard.expanded p {
+  /* allows text wrapping */
+  white-space: normal;
+  /* ensures the text isn't cut off */
+  overflow: visible;
+  /* no ellipsis */
+  text-overflow: clip;
+  /* ensures long words don't overflow */
+  word-wrap: break-word;
+}
+
+/* allow only the body content of the project card to scroll */
+.projectCardBody {
+  overflow-y: auto;
+  /* adjust based on title height */
+  max-height: calc(80vh - 50px);
+  /* prevents text from touching the scrollbar */
+  padding-right: 10px;
 }

@@ -12,9 +12,11 @@ export function createProjectCard(title, description, dueDate, priority) {
             <h3>${title}</h3>
             <button id="deleteProject">x</button>
         </div>
-        <p>${description}</p>
-        <p><strong>Due Date:</strong> ${dueDate}</p>
-        <p><strong>Priority:</strong> ${priority}</p>
+        <div class="projectCardBody">
+            <p>${description}</p>
+            <p><strong>Due Date:</strong> ${dueDate}</p>
+            <p><strong>Priority:</strong> ${priority}</p>
+        </div>
     `;
 
     // delete card

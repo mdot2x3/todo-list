@@ -3,6 +3,7 @@ import "./views/appUI.js";
 import { createProject, deleteProject, removeTaskListFromProject, viewAllProjects } from "./controllers/projectController.js";
 import { createTaskList, removeTaskItemFromTaskList } from "./controllers/taskListController.js";
 import { createTaskItem } from "./controllers/taskItemController.js";
+import { createProjectCard } from "./views/cardGenerator.js";
 
 /*
 // test data
@@ -22,3 +23,10 @@ deleteProject(project2.id);
 
 viewAllProjects();
 */
+
+ createProjectCard("title1", "description", "dueDate", "priority");
+ createProjectCard("title2", "description", "dueDate", "priority");
+ createProjectCard("title33333333333333333333333333333333", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");
+ createProjectCard("title4", "description", "dueDate", "priority");
+ createProjectCard("title5", "description", "dueDate", "priority");
+ createProjectCard("title6666666666666666666666666666", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");
