@@ -124,6 +124,11 @@ does not stretch beyond its container */
   z-index: 5;
 }
 
+.modalOpen {
+  /* disable clicks on everything, inside and outside the card (reenabled specifically in .expanded below) */
+  pointer-events: none;
+}
+
 .projectCard.expanded {
   display: flex;
   flex-direction: column;
@@ -141,6 +146,8 @@ does not stretch beyond its container */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* enable clicks on the expanded card */
+  pointer-events: auto;
 }
 
 /* OVERRIDE: prevent text truncation on expanded card*/
