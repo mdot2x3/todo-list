@@ -162,3 +162,10 @@ does not stretch beyond its container */
   /* ensures long words don't overflow */
   word-wrap: break-word;
 }
+
+.projectCardPlaceholder {
+  /* keeps the space but hides the element */
+  visibility: hidden;
+  background: transparent;
+  border: none;
+}

@@ -12,9 +12,25 @@ export function toggleExpandProjectCard(event) {
     }
 
     function expandCard(card) {
+        // create a placeholder div to occupy the original space
+        const placeholder = document.createElement("div");
+        placeholder.classList.add("projectCardPlaceholder");
+        // ensure the placeholder takes up the exact same space as the original card
+        // returns the visible width/height of the card, including padding, excluding margins and scrollbars
+        placeholder.style.width = `${card.offsetWidth}px`;
+        placeholder.style.height = `${card.offsetHeight}px`;
+
+        // insert the placeholder before the card
+        // card.parentNode gets the parent container(#content)
+        // insertBefore(newElement, referenceElement), inserts newElement before referenceElement
+        card.parentNode.insertBefore(placeholder, card);
+
+        // move the card to expanded positioning
         card.classList.add("expanded");
         document.body.classList.add("modalOpen");
-
+        // stores a reference to the placeholder element inside the card for later removal
+        card.dataset.placeholderId = placeholder;
+        
         // close card on outside click
         setTimeout(() => {
             document.addEventListener("click", closeOnOutsideClick);
@@ -22,6 +38,10 @@ export function toggleExpandProjectCard(event) {
     }
 
     function shrinkCard(card) {
+        // remove the placeholder
+        const placeholder = document.querySelector(".projectCardPlaceholder");
+        if (placeholder) placeholder.remove();
+
         card.classList.remove("expanded");
         document.body.classList.remove("modalOpen");
         document.removeEventListener("click", closeOnOutsideClick);
