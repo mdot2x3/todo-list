@@ -18,6 +18,10 @@ export function createProjectCard(title, description, dueDate, priority) {
             <p><strong>Due Date:</strong> ${dueDate}</p>
             <p><strong>Priority:</strong> ${priority}</p>
         </div>
+        <div class="taskSection hidden">
+            <button id="addTaskButton">+ New Task</button>
+            <div class="taskListContainer"></div>
+        </div>
     `;
     
     domContent.appendChild(card);

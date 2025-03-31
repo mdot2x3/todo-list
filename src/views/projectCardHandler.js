@@ -34,6 +34,10 @@ export function toggleExpandProjectCard(event) {
         const minimizeButton = card.querySelector("#minimizeProject");
         if (minimizeButton) minimizeButton.classList.remove("hidden");
 
+        // show the task section when expanded
+        const taskSection = card.querySelector(".taskSection");
+        if (taskSection) taskSection.classList.remove("hidden");
+
         // create a placeholder div to occupy the original space
         const placeholder = document.createElement("div");
         placeholder.classList.add("projectCardPlaceholder");
@@ -63,6 +67,10 @@ export function toggleExpandProjectCard(event) {
         // hide the minimize button when shrinking
         const minimizeButton = card.querySelector("#minimizeProject");
         if (minimizeButton) minimizeButton.classList.add("hidden");
+
+        // hide the task section when shrinking
+        const taskSection = card.querySelector(".taskSection");
+        if (taskSection) taskSection.classList.add("hidden");
 
         // remove the placeholder
         const placeholder = document.querySelector(".projectCardPlaceholder");

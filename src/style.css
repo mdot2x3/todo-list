@@ -198,3 +198,28 @@ does not stretch beyond its container */
 #minimizeProject.hidden {
   display: none;
 }
+
+.taskSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+#addTaskButton {
+  background: dodgerblue;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#addTaskButton:hover {
+  background: royalblue;
+}
+
+/* hide task section */
+.taskSection.hidden {
+  display: none;
+}
