@@ -36,9 +36,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // list for project card clicks, run projectCardHandler.js function
     contentArea.addEventListener("click", toggleExpandProjectCard);
-
-
-
-
-
 });

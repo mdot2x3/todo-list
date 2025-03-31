@@ -90,9 +90,12 @@ does not stretch beyond its container */
 
 /* style the delete button */
 #deleteProject {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 0px;
+  right: -3px;
   background: red;
   color: white;
   border: none;
@@ -102,9 +105,6 @@ does not stretch beyond its container */
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   line-height: 0;
 }
 
@@ -168,4 +168,33 @@ does not stretch beyond its container */
   visibility: hidden;
   background: transparent;
   border: none;
+}
+
+/* style the minimize button */
+#minimizeProject {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0px;
+  right: 24px;
+  background: darkgrey;
+  color: white;
+  border: none;
+  border-radius: 25%;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 0;
+}
+
+#minimizeProject:hover {
+  background: grey;
+}
+
+/* hide minimize button */
+#minimizeProject.hidden {
+  display: none;
 }
