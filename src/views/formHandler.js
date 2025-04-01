@@ -1,6 +1,7 @@
 import { createProject, viewAllProjects } from "../controllers/projectController.js";
 import { projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
+import { createTaskItem } from "../controllers/taskItemController.js";
 
 export function projectFormSubmission(event) {
     // prevent page reload on submit
@@ -34,4 +35,29 @@ export function projectFormSubmission(event) {
     createProjectCard(title, description, dueDate, priority);
     
     addProjectDialog.close();
+}
+
+export function taskFormSubmission(event) {
+    event.preventDefault();
+
+    const addTaskDialog = document.querySelector("#addTaskDialog");
+    const addTaskForm = document.querySelector("#addTaskForm");
+    const formData = new FormData(addTaskForm);
+
+    if (!addTaskForm.checkValidity()) {
+        addTaskForm.reportValidity();
+        return;
+    }
+
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const dueDate = formData.get("dueDate");
+    const priority = formData.get("priority");
+    const notes = formData.get("notes");
+    const taskListId = document.querySelector("#taskListSelection").value;
+
+    // generate a task item
+    createTaskItem(title, description, dueDate, priority, notes, taskListId);
+
+    addTaskDialog.close();
 }
