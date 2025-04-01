@@ -8,6 +8,7 @@ export class Project {
         this.dueDate = dueDate;
         this.priority = priority;
         this.projectArrayOfTaskLists = [];
+        this.projectArrayOfTaskItems = [];
     }
 
     addTaskList(taskList) {
@@ -22,6 +23,18 @@ export class Project {
 
     getTaskListById(taskListId) {
         return this.projectArrayOfTaskLists.find(arrayElement => arrayElement.id === taskListId);
+    }
+
+    addTaskItem(taskItem) {
+        this.projectArrayOfTaskItems.push(taskItem);
+    }
+
+    removeTaskItem(taskItemId) {
+        this.projectArrayOfTaskItems = this.projectArrayOfTaskItems.filter(arrayElement => arrayElement.id !== taskItemId);
+    }
+
+    getTaskItemById(taskItemId) {
+        return this.projectArrayOfTaskItems.find(arrayElement => arrayElement.id === taskItemId);
     }
 
     removeProject() {
