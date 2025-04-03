@@ -236,3 +236,7 @@ does not stretch beyond its container */
   /* enable clicks on the new dialog box */
   pointer-events: auto;
 }
+
+.unassignedTasks.hidden {
+  display: none;
+}

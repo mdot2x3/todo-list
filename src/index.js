@@ -24,7 +24,7 @@ deleteProject(project2.id);
 viewAllProjects();
 */
 
-
+/*
 // backend functionality - test data 2
 
 // Step 1: Create Projects
@@ -56,11 +56,11 @@ deleteProject(project2.id);
 
 // Step 9: View All Projects
 viewAllProjects();
+*/
 
-
-//  createProjectCard("title1", "description", "dueDate", "priority");
-//  createProjectCard("title2", "description", "dueDate", "priority");
-//  createProjectCard("title33333333333333333333333333333333", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");
-//  createProjectCard("title4", "description", "dueDate", "priority");
-//  createProjectCard("title5", "description", "dueDate", "priority");
-//  createProjectCard("title6666666666666666666666666666", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");
+ createProjectCard("title1", "description", "dueDate", "priority");
+ createProjectCard("title2", "description", "dueDate", "priority");
+ createProjectCard("title33333333333333333333333333333333", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");
+ createProjectCard("title4", "description", "dueDate", "priority");
+ createProjectCard("title5", "description", "dueDate", "priority");
+ createProjectCard("title6666666666666666666666666666", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");

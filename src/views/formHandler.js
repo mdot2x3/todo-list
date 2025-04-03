@@ -2,6 +2,7 @@ import { createProject, viewAllProjects } from "../controllers/projectController
 import { projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
 import { createTaskItem } from "../controllers/taskItemController.js";
+import { addTaskToUI } from "./taskGenerator.js";
 
 export function projectFormSubmission(event) {
     // prevent page reload on submit
@@ -26,16 +27,22 @@ export function projectFormSubmission(event) {
     const dueDate = formData.get("dueDate");
     const priority = formData.get("priority");
 
-    createProject(title, description, dueDate, priority);
+    // correctly assigns newProject
+    const newProject = createProject(title, description, dueDate, priority);
+    // check that the project has an id
+    console.log("Project Created:", newProject);
+
     viewAllProjects();
     // view table of all current project data stored
     console.table(projectStorage);
 
-    // generate a UI card
-    createProjectCard(title, description, dueDate, priority);
+    // generate a UI card, collect project id from newProject object
+    createProjectCard(title, description, dueDate, priority, newProject.id);
     
     addProjectDialog.close();
 }
+
+
 
 export function taskFormSubmission(event) {
     event.preventDefault();
@@ -54,10 +61,22 @@ export function taskFormSubmission(event) {
     const dueDate = formData.get("dueDate");
     const priority = formData.get("priority");
     const notes = formData.get("notes");
-    const taskListId = document.querySelector("#taskListSelection").value;
+    // retrieve task list id from dropdown (if applicable)
+    const taskListId = formData.get("taskListId") || null;
 
-    // generate a task item
-    createTaskItem(title, description, dueDate, priority, notes, taskListId);
+    // retrieve the project id dynamically from the currently expanded project card
+    const projectCard = document.querySelector(".projectCard.expanded"); 
+    const projectId = projectCard ? projectCard.dataset.projectId : null;
+    if (!projectId) {
+        console.error("Error: No project is currently selected to add the task.");
+        return;
+    }
+
+    // generate a new task item and store reference
+    const newTaskItem = createTaskItem(title, description, dueDate, priority, notes, projectId, taskListId);
+
+    // update the UI by adding the task item element to the correct project/task list
+    addTaskToUI(newTaskItem, projectId, taskListId);
 
     addTaskDialog.close();
 }

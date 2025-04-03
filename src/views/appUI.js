@@ -1,8 +1,7 @@
-import { projectFormSubmission } from "./formHandler.js";
+import { projectFormSubmission, taskFormSubmission } from "./formHandler.js";
 import { projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
 import { toggleExpandProjectCard } from "./projectCardHandler.js";
-import { taskFormSubmission } from "./formHandler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const contentArea = document.querySelector("#content");
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    
+
     // open input modal when clicking "+ New Task"
     // #addTaskButton is dynamically added via the DOM when a project expands, must delegate the listener
     document.addEventListener("click", (event) => {
