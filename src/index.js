@@ -58,9 +58,9 @@ deleteProject(project2.id);
 viewAllProjects();
 */
 
- createProjectCard("title1", "description", "dueDate", "priority");
- createProjectCard("title2", "description", "dueDate", "priority");
- createProjectCard("title33333333333333333333333333333333", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");
- createProjectCard("title4", "description", "dueDate", "priority");
- createProjectCard("title5", "description", "dueDate", "priority");
- createProjectCard("title6666666666666666666666666666", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority");
+createProjectCard("title1", "description", "dueDate", "priority", 1);
+createProjectCard("title2", "description", "dueDate", "priority", 2);
+createProjectCard("title33333333333333333333333333333333", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority", 3);
+createProjectCard("title4", "description", "dueDate", "priority", 4);
+createProjectCard("title5", "description", "dueDate", "priority", 5);
+createProjectCard("title6666666666666666666666666666", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority", 6);

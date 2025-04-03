@@ -26,9 +26,12 @@ export function createProjectCard(title, description, dueDate, priority, project
             <button id="addTaskButton">+ New Task</button>
             <div class="unassignedTasks hidden">
                 <h4>Unassigned Tasks</h4>
-                <ul class="unassignedTaskList"></ul>
+                <ul class="unassignedTaskGroup"></ul>
             </div>
-            <div class="taskListContainer"></div>
+            <div class="taskListContainer hidden">
+                <h4>Task List</h4>
+                <ul class="taskListGroup"></ul>
+            </div>
         </div>
     `;
     

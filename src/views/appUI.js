@@ -2,6 +2,7 @@ import { projectFormSubmission, taskFormSubmission } from "./formHandler.js";
 import { projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
 import { toggleExpandProjectCard } from "./projectCardHandler.js";
+import { addNewTaskList, resetTaskListInput } from "./taskGenerator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const contentArea = document.querySelector("#content");
@@ -16,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeAddTask = addTaskDialog.querySelector("#closeAddTask");
     const submitAddTask = addTaskDialog.querySelector("#submitAddTask");
     const addTaskForm = addTaskDialog.querySelector("#addTaskForm");
+
+    const addTaskListButton = addTaskDialog.querySelector("#addTaskListButton");
 
     // open input modal on button click
     openAddProject.addEventListener("click", () => {
@@ -74,5 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // listen for addTask submit, run formHandler.js function
     submitAddTask.addEventListener("click", taskFormSubmission);
+
+
+
+    // listen for "+ New List" click inside new task modal
+    addTaskListButton.addEventListener("click", addNewTaskList);
+    // re-hide task list input field after close or submit
+    resetTaskListInput();
 
 });

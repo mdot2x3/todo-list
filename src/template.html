@@ -66,7 +66,11 @@
         <option value="none">None (standalone task)</option>
         <!-- Dynamic task lists will be populated here -->
       </select>
-      <button id="createNewTaskList">+ New List</button><br>
+      <button id="addTaskListButton">+ New List</button><br>
+      <div class="taskListInputDiv hidden">
+        <input type="text" id="newTaskListTitle" placeholder="Enter list title">
+        <button id="confirmAddTaskList">✔</button>
+    </div>
     </form>
     <div class="buttonDiv">
       <button id="closeAddTask" autofocus>Close</button>

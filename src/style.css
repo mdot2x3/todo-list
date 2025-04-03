@@ -240,3 +240,11 @@ does not stretch beyond its container */
 .unassignedTasks.hidden {
   display: none;
 }
+
+.taskListContainer.hidden {
+  display: none;
+}
+
+.taskListInputDiv.hidden {
+  display: none;
+}

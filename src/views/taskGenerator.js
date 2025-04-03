@@ -1,3 +1,13 @@
+export function createTaskItemElement(taskItem) {
+    const taskElement = document.createElement("li");
+    taskElement.classList.add("taskItem");
+    taskElement.dataset.taskItemId = taskItem.id;
+    taskElement.innerHTML = `
+        <span>${taskItem.title} | Due: ${taskItem.dueDate} | Priority: ${taskItem.priority}</span>
+    `;
+    return taskElement;
+}
+
 export function addTaskToUI(taskItem, projectId, taskListId) {
     // locate the project card in the UI
     const projectCard = document.querySelector(`.projectCard[data-project-id="${projectId}"]`);
@@ -12,10 +22,10 @@ export function addTaskToUI(taskItem, projectId, taskListId) {
             taskListUL.appendChild(taskElement);
         }
     } else {
-        const unassignedTaskList = projectCard.querySelector(".unassignedTaskList");
-        if (unassignedTaskList) {
+        const unassignedTaskGroup = projectCard.querySelector(".unassignedTaskGroup");
+        if (unassignedTaskGroup) {
             const taskElement = createTaskItemElement(taskItem);
-            unassignedTaskList.appendChild(taskElement);
+            unassignedTaskGroup.appendChild(taskElement);
         }
         const unassignedTaskContainer = projectCard.querySelector(".unassignedTasks");
         if (unassignedTaskContainer) {
@@ -24,12 +34,30 @@ export function addTaskToUI(taskItem, projectId, taskListId) {
     }
 }
 
-export function createTaskItemElement(taskItem) {
-    const taskElement = document.createElement("li");
-    taskElement.classList.add("taskItem");
-    taskElement.dataset.taskItemId = taskItem.id;
-    taskElement.innerHTML = `
-        <span>${taskItem.title} | Due: ${taskItem.dueDate} | Priority: ${taskItem.priority}</span>
-    `;
-    return taskElement;
+export function addNewTaskList(event) {
+    // prevent submit, page reload
+    event.preventDefault();
+
+    const taskListInputDiv = document.querySelector(".taskListInputDiv");
+    if (taskListInputDiv) {
+        taskListInputDiv.classList.remove("hidden");
+    }
+}
+
+export function resetTaskListInput() {
+    const addTaskDialog = document.querySelector("#addTaskDialog");
+    const addTaskForm = addTaskDialog.querySelector("#addTaskForm");
+    const taskListInputDiv = addTaskDialog.querySelector(".taskListInputDiv");
+
+    if (!taskListInputDiv) return;
+
+    // Hide input field when dialog closes
+    addTaskDialog.addEventListener("close", () => {
+        taskListInputDiv.classList.add("hidden");
+    });
+
+    // Hide input field when submitting task
+    addTaskForm.addEventListener("submit", () => {
+        taskListInputDiv.classList.add("hidden");
+    });
 }
