@@ -1,3 +1,5 @@
+import { createTaskList } from "../controllers/taskListController.js";
+
 export function createTaskItemElement(taskItem) {
     const taskElement = document.createElement("li");
     taskElement.classList.add("taskItem");
@@ -34,7 +36,7 @@ export function addTaskToUI(taskItem, projectId, taskListId) {
     }
 }
 
-export function addNewTaskList(event) {
+export function showTaskListInput(event) {
     // prevent submit, page reload
     event.preventDefault();
 
@@ -59,5 +61,48 @@ export function resetTaskListInput() {
     // Hide input field when submitting task
     addTaskForm.addEventListener("submit", () => {
         taskListInputDiv.classList.add("hidden");
+    });
+}
+
+export function handleTaskListSubmission() {
+    const submitTaskListButton = document.querySelector("#submitTaskList");
+
+    submitTaskListButton.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const taskListInput = document.querySelector("#taskListInput");
+        const dropdown = document.querySelector("#taskListSelection");
+        const title = taskListInput.value.trim();
+
+        // validate
+        if (title === "") {
+            alert("Please enter a valid Task List name.");
+            return;
+        }
+
+        // get current project
+        const projectCard = document.querySelector(".projectCard.expanded");
+        const projectId = projectCard ? projectCard.dataset.projectId : null;
+
+        if (!projectId) {
+            console.error("No project selected to add a Task List.");
+            return;
+        }
+
+        // create and store task list
+        const newTaskList = createTaskList(title, projectId);
+        console.log("Task List Created:", newTaskList);
+
+        // create <option> in dropdown
+        const option = document.createElement("option");
+        option.value = newTaskList.id;
+        option.textContent = newTaskList.title;
+        option.selected = true;
+
+        dropdown.appendChild(option);
+
+        // reset UI
+        taskListInput.value = "";
+        document.querySelector(".taskListInputDiv").classList.add("hidden");
     });
 }
