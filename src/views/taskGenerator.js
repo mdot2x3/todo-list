@@ -10,27 +10,51 @@ export function createTaskItemElement(taskItem) {
     return taskElement;
 }
 
-export function addTaskToUI(taskItem, projectId, taskListId) {
-    // locate the project card in the UI
+export function createTaskListElement(taskListId, taskListTitle) {
+    // create the task list container
+    const taskListContainer = document.createElement("div");
+    taskListContainer.classList.add("taskList");
+    taskListContainer.dataset.taskListId = taskListId;
+
+    // create the task list header and add it to the container
+    const taskListHeader = document.createElement("h5");
+    taskListHeader.textContent = taskListTitle;
+    taskListContainer.appendChild(taskListHeader);
+
+    // create the task list's UL for the tasks
+    const taskListUL = document.createElement("ul");
+    taskListContainer.appendChild(taskListUL);
+
+    return taskListContainer;
+}
+
+export function addTaskToUI(taskItem, projectId, taskListId, taskListTitle) {
     const projectCard = document.querySelector(`.projectCard[data-project-id="${projectId}"]`);
     if (!projectCard) return;
 
-    // check if the task belongs to a task list or is unassigned
-    if (taskListId) {
-        const taskListContainer = projectCard.querySelector(`.taskListContainer[data-task-list-id="${taskListId}"]`);
-        if (taskListContainer) {
-            const taskListUL = taskListContainer.querySelector("ul");
-            const taskElement = createTaskItemElement(taskItem);
-            taskListUL.appendChild(taskElement);
+    if (taskListId && taskListId !== "none") {
+        // look for existing taskList container
+        let taskListContainer = projectCard.querySelector(`.taskList[data-task-list-id="${taskListId}"]`);
+
+        if (!taskListContainer) {
+            // create and append it if it doesn't exist yet
+            taskListContainer = createTaskListElement(taskListId, taskListTitle);
+            const listSection = projectCard.querySelector(".taskListContainer");
+            listSection.classList.remove("hidden");
+            listSection.appendChild(taskListContainer);
         }
+
+        const taskListUL = taskListContainer.querySelector("ul");
+        const taskElement = createTaskItemElement(taskItem);
+        taskListUL.appendChild(taskElement);
     } else {
+        // if no list selected or 'None' was selected
         const unassignedTaskGroup = projectCard.querySelector(".unassignedTaskGroup");
-        if (unassignedTaskGroup) {
+        const unassignedTaskContainer = projectCard.querySelector(".unassignedTasks");
+
+        if (unassignedTaskGroup && unassignedTaskContainer) {
             const taskElement = createTaskItemElement(taskItem);
             unassignedTaskGroup.appendChild(taskElement);
-        }
-        const unassignedTaskContainer = projectCard.querySelector(".unassignedTasks");
-        if (unassignedTaskContainer) {
             unassignedTaskContainer.classList.remove("hidden");
         }
     }

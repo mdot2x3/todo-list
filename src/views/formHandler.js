@@ -61,22 +61,31 @@ export function taskFormSubmission(event) {
     const dueDate = formData.get("dueDate");
     const priority = formData.get("priority");
     const notes = formData.get("notes");
-    // retrieve task list id from dropdown (if applicable)
-    const taskListId = formData.get("taskListId") || null;
 
-    // retrieve the project id dynamically from the currently expanded project card
-    const projectCard = document.querySelector(".projectCard.expanded"); 
+    // get project ID from expanded card
+    const projectCard = document.querySelector(".projectCard.expanded");
     const projectId = projectCard ? projectCard.dataset.projectId : null;
     if (!projectId) {
         console.error("Error: No project is currently selected to add the task.");
         return;
     }
 
-    // generate a new task item and store reference
-    const newTaskItem = createTaskItem(title, description, dueDate, priority, notes, projectId, taskListId);
+    // get dropdown selection
+    const selectElement = document.querySelector("#taskListSelection");
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const taskListId = selectedOption.value !== "none" ? selectedOption.value : null;
+    const taskListTitle = selectedOption.textContent;
 
-    // update the UI by adding the task item element to the correct project/task list
-    addTaskToUI(newTaskItem, projectId, taskListId);
+    // handle unassigned task
+    if (!taskListId) {
+        const newTaskItem = createTaskItem(title, description, dueDate, priority, notes, projectId, null);
+        // unassigned
+        addTaskToUI(newTaskItem, projectId, null);
+    } else {
+        // add task to the existing or new task list
+        const newTaskItem = createTaskItem(title, description, dueDate, priority, notes, projectId, taskListId);
+        addTaskToUI(newTaskItem, projectId, taskListId, taskListTitle);
+    }
 
     addTaskDialog.close();
 }

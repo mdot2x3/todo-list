@@ -30,7 +30,6 @@ export function createProjectCard(title, description, dueDate, priority, project
             </div>
             <div class="taskListContainer hidden">
                 <h4>Task List</h4>
-                <ul class="taskListGroup"></ul>
             </div>
         </div>
     `;
