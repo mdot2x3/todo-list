@@ -2,7 +2,7 @@ import { projectFormSubmission, taskFormSubmission } from "./formHandler.js";
 import { projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
 import { toggleExpandProjectCard } from "./projectCardHandler.js";
-import { showTaskListInput, resetTaskListInput, handleTaskListSubmission } from "./taskGenerator.js";
+import { showTaskListInput, resetTaskListInput, handleTaskListSubmission, populateTaskListDropdown } from "./taskGenerator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const contentArea = document.querySelector("#content");
@@ -56,6 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // #addTaskButton is dynamically added via the DOM when a project expands, must delegate the listener
     document.addEventListener("click", (event) => {
         if (event.target && event.target.id === "addTaskButton") {
+             // get the current project
+            const projectCard = event.target.closest(".projectCard");
+            const projectId = projectCard ? projectCard.dataset.projectId : null;
+
+            if (projectId) {
+                populateTaskListDropdown(projectId);
+            }
+
             addTaskDialog.showModal();
         }
     });
@@ -83,5 +91,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // re-hide task list input field after close or submit
     resetTaskListInput();
     handleTaskListSubmission();
-    
+
 });

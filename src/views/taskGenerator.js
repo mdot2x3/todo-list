@@ -88,6 +88,31 @@ export function resetTaskListInput() {
     });
 }
 
+export function populateTaskListDropdown(projectId) {
+    const dropdown = document.querySelector("#taskListSelection");
+
+    // clear all existing options
+    dropdown.innerHTML = "";
+
+    // always add the default "None" option
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "none";
+    defaultOption.textContent = "None (standalone task)";
+    dropdown.appendChild(defaultOption);
+
+    // find all task lists for the current project
+    const projectCard = document.querySelector(`.projectCard[data-project-id="${projectId}"]`);
+    const taskListElements = projectCard.querySelectorAll(".taskList");
+
+    taskListElements.forEach(taskList => {
+        const option = document.createElement("option");
+        option.value = taskList.dataset.taskListId;
+        option.textContent = taskList.querySelector("h5").textContent;
+        dropdown.appendChild(option);
+    });
+}
+
+
 export function handleTaskListSubmission() {
     const submitTaskListButton = document.querySelector("#submitTaskList");
 
