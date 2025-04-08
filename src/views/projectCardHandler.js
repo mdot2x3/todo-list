@@ -72,6 +72,12 @@ export function toggleExpandProjectCard(event) {
         const taskSection = card.querySelector(".taskSection");
         if (taskSection) taskSection.classList.add("hidden");
 
+         // collapse all expanded task items
+        const expandedTasks = card.querySelectorAll(".taskItem.expanded");
+        expandedTasks.forEach(task => {
+            task.classList.remove("expanded");
+        });
+
         // remove the placeholder
         const placeholder = document.querySelector(".projectCardPlaceholder");
         if (placeholder) placeholder.remove();

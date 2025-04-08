@@ -266,9 +266,22 @@ does not stretch beyond its container */
 
 /* header (title) stays fixed, clickable to expand */
 .taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 15px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.taskArrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* rotate arrow down when expanded */
+.taskItem.expanded .taskArrow {
+  transform: rotate(90deg);
 }
 
 /* details drawer hidden by default */

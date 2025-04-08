@@ -11,6 +11,12 @@ export function createTaskItemElement(taskItem) {
     taskHeader.classList.add("taskHeader");
     taskHeader.textContent = taskItem.title;
     
+    // an arrow indicating if the drawer is open or closed
+    const arrow = document.createElement("span");
+    arrow.classList.add("taskArrow");
+    // right-pointing triangle (▶)
+    arrow.innerHTML = "&#9654;";
+
     // hidden details drawer (initially collapsed)
     const taskDetails = document.createElement("div");
     taskDetails.classList.add("taskDetails");
@@ -22,6 +28,7 @@ export function createTaskItemElement(taskItem) {
     `;
 
     taskElement.appendChild(taskHeader);
+    taskHeader.appendChild(arrow);
     taskElement.appendChild(taskDetails);
 
      // click expands/collapses the drawer
