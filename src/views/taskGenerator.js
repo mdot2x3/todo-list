@@ -4,9 +4,31 @@ export function createTaskItemElement(taskItem) {
     const taskElement = document.createElement("li");
     taskElement.classList.add("taskItem");
     taskElement.dataset.taskItemId = taskItem.id;
-    taskElement.innerHTML = `
-        <span>${taskItem.title} | Due: ${taskItem.dueDate} | Priority: ${taskItem.priority}</span>
+    taskElement.dataset.priority = taskItem.priority;
+    
+    // task header (always visible, colored)
+    const taskHeader = document.createElement("div");
+    taskHeader.classList.add("taskHeader");
+    taskHeader.textContent = taskItem.title;
+    
+    // hidden details drawer (initially collapsed)
+    const taskDetails = document.createElement("div");
+    taskDetails.classList.add("taskDetails");
+    taskDetails.innerHTML = `
+        <p><strong>Description:</strong> ${taskItem.description}</p>
+        <p><strong>Due Date:</strong> ${taskItem.dueDate}</p>
+        <p><strong>Priority:</strong> ${taskItem.priority}</p>
+        <p><strong>Notes:</strong> ${taskItem.notes}</p>
     `;
+
+    taskElement.appendChild(taskHeader);
+    taskElement.appendChild(taskDetails);
+
+     // click expands/collapses the drawer
+     taskHeader.addEventListener("click", () => {
+        taskElement.classList.toggle("expanded");
+    });
+    
     return taskElement;
 }
 
@@ -32,6 +54,8 @@ export function addTaskToUI(taskItem, projectId, taskListId, taskListTitle) {
     const projectCard = document.querySelector(`.projectCard[data-project-id="${projectId}"]`);
     if (!projectCard) return;
 
+    const taskElement = createTaskItemElement(taskItem);
+
     if (taskListId && taskListId !== "none") {
         // look for existing taskList container
         let taskListContainer = projectCard.querySelector(`.taskList[data-task-list-id="${taskListId}"]`);
@@ -45,7 +69,6 @@ export function addTaskToUI(taskItem, projectId, taskListId, taskListTitle) {
         }
 
         const taskListUL = taskListContainer.querySelector("ul");
-        const taskElement = createTaskItemElement(taskItem);
         taskListUL.appendChild(taskElement);
     } else {
         // if no list selected or 'None' was selected
@@ -53,7 +76,6 @@ export function addTaskToUI(taskItem, projectId, taskListId, taskListTitle) {
         const unassignedTaskContainer = projectCard.querySelector(".unassignedTasks");
 
         if (unassignedTaskGroup && unassignedTaskContainer) {
-            const taskElement = createTaskItemElement(taskItem);
             unassignedTaskGroup.appendChild(taskElement);
             unassignedTaskContainer.classList.remove("hidden");
         }
