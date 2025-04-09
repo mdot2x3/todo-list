@@ -6,16 +6,40 @@ export function createTaskItemElement(taskItem) {
     taskElement.dataset.taskItemId = taskItem.id;
     taskElement.dataset.priority = taskItem.priority;
     
+    // create checkbox for task completion
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.classList.add("taskCheckbox");
+    // reflect current checkbox state
+    checkbox.checked = taskItem.checkbox;
+
+    // prevent checkbox click from toggling dropdown
+    checkbox.addEventListener("click", (e) => {
+        // stop bubbling to taskHeader click
+        e.stopPropagation();
+        // update internal model
+        taskItem.toggleCheckbox();
+        // reflect state
+        checkbox.checked = taskItem.checkbox;
+        // add class "completed" to checked box
+        taskElement.classList.toggle("completed", taskItem.checkbox);
+    });
+
+     // create taskContent container
+     const taskContent = document.createElement("div");
+     taskContent.classList.add("taskContent");
+
     // task header (always visible, colored)
     const taskHeader = document.createElement("div");
     taskHeader.classList.add("taskHeader");
     taskHeader.textContent = taskItem.title;
-    
+
     // an arrow indicating if the drawer is open or closed
     const arrow = document.createElement("span");
     arrow.classList.add("taskArrow");
     // right-pointing triangle (▶)
     arrow.innerHTML = "&#9654;";
+    taskHeader.appendChild(arrow);
 
     // hidden details drawer (initially collapsed)
     const taskDetails = document.createElement("div");
@@ -26,10 +50,13 @@ export function createTaskItemElement(taskItem) {
         <p><strong>Priority:</strong> ${taskItem.priority}</p>
         <p><strong>Notes:</strong> ${taskItem.notes}</p>
     `;
-
-    taskElement.appendChild(taskHeader);
-    taskHeader.appendChild(arrow);
-    taskElement.appendChild(taskDetails);
+    
+    taskContent.appendChild(taskHeader);
+    taskContent.appendChild(taskDetails);
+    // checkbox outside content
+    taskElement.appendChild(checkbox);
+    // taskContent holds header/details
+    taskElement.appendChild(taskContent);
 
      // click expands/collapses the drawer
      taskHeader.addEventListener("click", () => {

@@ -273,8 +273,11 @@ does not stretch beyond its container */
 }
 
 /* ---all task item css settings--- */
-/* entire task li gets the priority color as background */
+/* entire task li gets the priority color as background, except checkbox area */
 .taskItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
   list-style: none;
   border-radius: 4px;
   margin: 8px 0;
@@ -283,19 +286,21 @@ does not stretch beyond its container */
 }
 
 /* priority background for each task li */
-.taskItem[data-priority="low"]   { background-color: #d0e7ff; }
-.taskItem[data-priority="medium"]{ background-color: #fff3b0; }
-.taskItem[data-priority="high"]  { background-color: #ffd8a8; }
-.taskItem[data-priority="urgent"]{ background-color: #ffb0b0; }
+.taskItem[data-priority="low"] .taskHeader    { background-color: #d0e7ff; }
+.taskItem[data-priority="medium"] .taskHeader { background-color: #fff3b0; }
+.taskItem[data-priority="high"] .taskHeader   { background-color: #ffd8a8; }
+.taskItem[data-priority="urgent"] .taskHeader { background-color: #ffb0b0; }
 
 /* header (title) stays fixed, clickable to expand */
 .taskHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 6px 12px;
   font-weight: bold;
   cursor: pointer;
+  background-color: var(--priority-color);
+  border-radius: 4px;
 }
 
 .taskArrow {
@@ -314,15 +319,39 @@ does not stretch beyond its container */
   opacity: 0;
   overflow: hidden;
   background-color: white;
-  padding: 0 15px;
+  padding: 8px 12px;
   transition: all 0.3s ease;
+  display: none;
 }
 
 /* expanded state reveals the drawer */
 .taskItem.expanded .taskDetails {
   /* adjust max-height depending on content */
+  display: block;
   max-height: 300px;
   opacity: 1;
   padding: 10px 15px;
 }
 
+/* ---settings for checkbox--- */
+
+.taskCheckbox {
+  margin-right: 10px;
+  margin-top: 6px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.taskContent {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.taskItem.completed .taskHeader {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.taskItem.completed .taskDetails {
+  opacity: 0.6;
+}
