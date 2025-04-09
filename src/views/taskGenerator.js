@@ -45,14 +45,35 @@ export function createTaskListElement(taskListId, taskListTitle) {
     taskListContainer.classList.add("taskList");
     taskListContainer.dataset.taskListId = taskListId;
 
-    // create the task list header and add it to the container
-    const taskListHeader = document.createElement("h5");
-    taskListHeader.textContent = taskListTitle;
+    // create the clickable header wrapper
+    const taskListHeader = document.createElement("div");
+    taskListHeader.classList.add("taskListHeader");
+
+    // create an arrow indicating open/closed
+    const arrow = document.createElement("span");
+    arrow.classList.add("taskArrow");
+    // right-pointing triangle (▶)
+    arrow.innerHTML = "&#9654;";
+
+    // create the title element
+    const title = document.createElement("h5");
+    title.textContent = taskListTitle;
+
+    taskListHeader.appendChild(arrow);
+    taskListHeader.appendChild(title);
     taskListContainer.appendChild(taskListHeader);
 
-    // create the task list's UL for the tasks
+    // create the ul of tasks and hide it initially
     const taskListUL = document.createElement("ul");
+    taskListUL.classList.add("taskListItems");
+    taskListUL.classList.add("hidden");
     taskListContainer.appendChild(taskListUL);
+
+    // toggle expansion on click
+    taskListHeader.addEventListener("click", () => {
+        taskListContainer.classList.toggle("expanded");
+        taskListUL.classList.toggle("hidden");
+});
 
     return taskListContainer;
 }

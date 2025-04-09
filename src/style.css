@@ -249,6 +249,30 @@ does not stretch beyond its container */
   display: none;
 }
 
+/* ---(with above) all task list css settings--- */
+/* style all task list titles */
+.taskList h5 {
+  font-size: 25px;
+}
+
+.taskListHeader {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0.25rem;
+  gap: 0.5rem;
+}
+
+/* rotate arrow down when expanded (specifically for task list arrow) */
+.taskList.expanded .taskListHeader .taskArrow {
+  transform: rotate(90deg);
+}
+
+.taskListItems.hidden {
+  display: none;
+}
+
+/* ---all task item css settings--- */
 /* entire task li gets the priority color as background */
 .taskItem {
   list-style: none;
@@ -280,7 +304,7 @@ does not stretch beyond its container */
 }
 
 /* rotate arrow down when expanded */
-.taskItem.expanded .taskArrow {
+.taskItem.expanded .taskHeader .taskArrow {
   transform: rotate(90deg);
 }
 
@@ -301,3 +325,4 @@ does not stretch beyond its container */
   opacity: 1;
   padding: 10px 15px;
 }
+
