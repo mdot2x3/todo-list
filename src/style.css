@@ -250,17 +250,36 @@ does not stretch beyond its container */
 }
 
 /* ---(with above) all task list css settings--- */
-/* style all task list titles */
-.taskList h5 {
-  font-size: 25px;
-}
-
 .taskListHeader {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
   cursor: pointer;
   margin-bottom: 0.25rem;
   gap: 0.5rem;
+}
+
+/* style all task list titles */
+.taskListHeader h5 {
+  font-size: 25px;
+  /* create ellipsis for long titles */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* when expanded, allow wrapping */
+.taskList.expanded .taskListHeader h5 {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-wrap: break-word;
+}
+
+/* adjust task list arrow to align with title */
+.taskListHeader .taskArrow {
+  align-self: start;
+  padding-top: 3px;
 }
 
 /* rotate arrow down when expanded (specifically for task list arrow) */
@@ -293,18 +312,44 @@ does not stretch beyond its container */
 
 /* header (title) stays fixed, clickable to expand */
 .taskHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 10px;
   padding: 6px 12px;
   font-weight: bold;
   cursor: pointer;
   background-color: var(--priority-color);
   border-radius: 4px;
+  position: relative;
+}
+
+.taskTitle {
+  /* create ellipsis for long titles */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* When expanded, allow wrapping but don’t shift the arrow */
+.taskItem.expanded .taskHeader {
+  align-items: start;
+}
+
+/* when the task is expanded, remove ellipsis and allow wrapping */
+.taskItem.expanded .taskTitle {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-wrap: break-word;
 }
 
 .taskArrow {
-  display: inline-block;
+  align-self: start;
+  font-size: 16px;
+  min-width: 16px;
+  text-align: center;
+  margin-top: 2px;
   transition: transform 0.3s ease;
 }
 

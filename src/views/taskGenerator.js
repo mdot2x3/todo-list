@@ -32,13 +32,18 @@ export function createTaskItemElement(taskItem) {
     // task header (always visible, colored)
     const taskHeader = document.createElement("div");
     taskHeader.classList.add("taskHeader");
-    taskHeader.textContent = taskItem.title;
+    
+    const titleSpan = document.createElement("span");
+    titleSpan.classList.add("taskTitle");
+    titleSpan.textContent = taskItem.title;
 
     // an arrow indicating if the drawer is open or closed
     const arrow = document.createElement("span");
     arrow.classList.add("taskArrow");
     // right-pointing triangle (▶)
     arrow.innerHTML = "&#9654;";
+    
+    taskHeader.appendChild(titleSpan);
     taskHeader.appendChild(arrow);
 
     // hidden details drawer (initially collapsed)
