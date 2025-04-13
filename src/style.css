@@ -339,6 +339,10 @@ does not stretch beyond its container */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  /* ensures long unbroken text wraps */
+  overflow-wrap: break-word;
+  /* breaks long words if needed */
+  word-break: break-word;
 }
 
 /* When expanded, allow wrapping but don’t shift the arrow */
