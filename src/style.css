@@ -237,6 +237,16 @@ does not stretch beyond its container */
   pointer-events: auto;
 }
 
+/* control task list select dropdown bar size */
+#taskListSelection {
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
 .unassignedTasks.hidden {
   display: none;
 }
@@ -252,7 +262,7 @@ does not stretch beyond its container */
 /* ---(with above) all task list css settings--- */
 .taskListHeader {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: start;
   cursor: pointer;
   margin-bottom: 0.25rem;
@@ -373,9 +383,14 @@ does not stretch beyond its container */
 .taskItem.expanded .taskDetails {
   /* adjust max-height depending on content */
   display: block;
-  max-height: 300px;
+  /* remove the height limit of the section */
+  max-height: none;
   opacity: 1;
   padding: 10px 15px;
+  /* ensures long unbroken text wraps */
+  overflow-wrap: break-word;
+  /* breaks long words if needed */
+  word-break: break-word;
 }
 
 /* ---settings for checkbox--- */
