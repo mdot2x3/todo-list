@@ -209,10 +209,10 @@ does not stretch beyond its container */
 }
 
 /* remove automatic indent on li items */
-/* .taskSection ul {
+.taskSection ul {
   margin: 0px;
   padding: 0px;
-} */
+}
 
 #addTaskButton {
   background: dodgerblue;
@@ -273,7 +273,7 @@ does not stretch beyond its container */
   display: flex;
   /* align all children to the top */
   align-items: flex-start;
-  gap: 10px;
+  gap: 5px;
   width: 100%;
   cursor: pointer;
 }
@@ -303,6 +303,11 @@ does not stretch beyond its container */
 /* rotate arrow down when expanded (specifically for task list arrow) */
 .taskList.expanded .taskListHeader .taskArrow {
   transform: rotate(90deg);
+}
+
+/* align tasks within task lists under the arrow */
+.taskSection .taskListItems {
+  padding-left: 27px;
 }
 
 .taskListItems.hidden {
@@ -458,7 +463,7 @@ does not stretch beyond its container */
   width: 22px;
   height: 20px;
   margin-top: 2px;
-  margin-right: 6px;
+  margin-right: 10px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
