@@ -1,4 +1,5 @@
 import { createTaskList } from "../controllers/taskListController.js";
+import { removeTaskItemFromProject, removeTaskListFromProject } from "../controllers/projectController.js";
 
 export function createTaskItemElement(taskItem) {
     const taskElement = document.createElement("li");
@@ -6,6 +7,22 @@ export function createTaskItemElement(taskItem) {
     taskElement.dataset.taskItemId = taskItem.id;
     taskElement.dataset.priority = taskItem.priority;
     
+    // create delete button for task deletion
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("deleteTaskButton");
+    deleteButton.textContent = "x";
+
+    // prevent click from toggling the dropdown
+    deleteButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        // call the controller.js function to delete this task
+        const projectId = taskItem.projectId;
+        removeTaskItemFromProject(projectId, taskItem.id);
+
+        // remove from DOM
+        taskElement.remove();
+    });
+
     // create checkbox for task completion
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -58,7 +75,8 @@ export function createTaskItemElement(taskItem) {
     
     taskContent.appendChild(taskHeader);
     taskContent.appendChild(taskDetails);
-    // checkbox outside content
+    // delete button and checkbox outside content
+    taskElement.appendChild(deleteButton);
     taskElement.appendChild(checkbox);
     // taskContent holds header/details
     taskElement.appendChild(taskContent);
@@ -81,6 +99,25 @@ export function createTaskListElement(taskListId, taskListTitle) {
     const taskListHeader = document.createElement("div");
     taskListHeader.classList.add("taskListHeader");
 
+    // create delete button for the task list
+    const deleteListButton = document.createElement("button");
+    deleteListButton.classList.add("deleteTaskListButton");
+    deleteListButton.textContent = "x";
+
+    // prevent click from toggling the dropdown
+    deleteListButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        // confirm before delete
+        const confirmed = confirm("Delete this task list and all its tasks?");
+        if (!confirmed) return;
+
+        // call the controller.js function to delete this task
+        removeTaskListFromProject(taskListId);
+
+        // remove from DOM
+        taskListContainer.remove();
+    });
+
     // create an arrow indicating open/closed
     const arrow = document.createElement("span");
     arrow.classList.add("taskArrow");
@@ -91,6 +128,7 @@ export function createTaskListElement(taskListId, taskListTitle) {
     const title = document.createElement("h5");
     title.textContent = taskListTitle;
 
+    taskListHeader.appendChild(deleteListButton);
     taskListHeader.appendChild(arrow);
     taskListHeader.appendChild(title);
     taskListContainer.appendChild(taskListHeader);
