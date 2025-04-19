@@ -129,6 +129,12 @@ does not stretch beyond its container */
   pointer-events: none;
 }
 
+.modalOpen #editTaskDialog {
+  pointer-events: auto;
+  /* above modal overlay and project card */
+  z-index: 15;
+}
+
 .projectCard.expanded {
   display: flex;
   flex-direction: column;
@@ -232,6 +238,31 @@ does not stretch beyond its container */
   display: none;
 }
 
+/* add cog settings icon to task details section */
+
+.taskDetails {
+  /* key point: this makes the child .settingsIcon absolute positioning relative to this specific div */
+  position: relative;
+}
+
+.taskDetails p {
+  padding-right: 1em;
+}
+
+.settingsIcon {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.settingsIcon:hover {
+  color: #333;
+}
+
 #addTaskDialog {
   position: absolute;
   top: 35%;
@@ -265,6 +296,19 @@ does not stretch beyond its container */
 
 .taskListInputDiv.hidden {
   display: none;
+}
+
+/* edit task modal settings */
+#editTaskDialog {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
 }
 
 /* ---(with above) all task list css settings--- */

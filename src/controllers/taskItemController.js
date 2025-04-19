@@ -1,7 +1,6 @@
 import { TaskItem } from "../models/TaskItem";
 import { addTaskItemToTaskList } from "./taskListController.js";
 import { addTaskItemToProject } from "./projectController.js";
-import { projectStorage } from "../models/projectStorage.js";
 
 export function createTaskItem(title, description, dueDate, priority, notes, projectId, taskListId = null) {
     const newTaskItem = new TaskItem(title, description, dueDate, priority, notes, taskListId);

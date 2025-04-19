@@ -78,6 +78,35 @@
     </div>
   </dialog>
 
+  <dialog id="editTaskDialog">
+    <form action="" id="editTaskForm" novalidate>
+      <label for="editTaskTitle">Title:</label><br>
+      <input type="text" id="editTaskTitle" name="title" required><br>
+  
+      <label for="editTaskDescription">Description:</label><br>
+      <input type="text" id="editTaskDescription" name="description" required><br>
+  
+      <label for="editTaskDueDate">Due Date:</label><br>
+      <input type="date" id="editTaskDueDate" name="dueDate" required><br>
+  
+      <label for="editTaskPriority">Priority:</label>
+      <select id="editTaskPriority" name="priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+        <option value="urgent">Urgent</option>
+      </select><br>
+  
+      <label for="editTaskNotes">Notes:</label><br>
+      <textarea id="editTaskNotes" name="notes"></textarea><br>
+    </form>
+  
+    <div class="buttonDiv">
+      <button id="closeEditTask" autofocus>Cancel</button>
+      <button id="submitEditTask">Submit</button>
+    </div>
+  </dialog>
+
   <div id="content">  <!-- DOM content inserted here -->  </div>
 
 </body>

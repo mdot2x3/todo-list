@@ -2,7 +2,7 @@ import { projectFormSubmission, taskFormSubmission } from "./formHandler.js";
 import { projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
 import { toggleExpandProjectCard } from "./projectCardHandler.js";
-import { showTaskListInput, resetTaskListInput, handleTaskListSubmission, populateTaskListDropdown } from "./taskGenerator.js";
+import { showTaskListInput, resetTaskListInput, handleTaskListSubmission, populateTaskListDropdown, updateTaskById } from "./taskGenerator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const contentArea = document.querySelector("#content");
@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const addTaskForm = addTaskDialog.querySelector("#addTaskForm");
 
     const addTaskListButton = addTaskDialog.querySelector("#addTaskListButton");
+
+    const editTaskDialog = document.querySelector("#editTaskDialog");
 
     // open input modal on button click
     openAddProject.addEventListener("click", () => {
@@ -91,5 +93,34 @@ document.addEventListener("DOMContentLoaded", () => {
     // re-hide task list input field after close or submit
     resetTaskListInput();
     handleTaskListSubmission();
+
+    // prevents clicks inside the modal from reaching the project card
+    editTaskDialog.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
+    // listen for click to close edit task modal
+    document.querySelector("#closeEditTask").addEventListener("click", () => {
+        editTaskDialog.close();
+    });
+      
+    // listen for click to submit edit task modal
+    document.querySelector("#submitEditTask").addEventListener("click", () => {
+        // grab updated values
+        const updatedTask = {
+            title: document.querySelector("#editTaskTitle").value,
+            description: document.querySelector("#editTaskDescription").value,
+            dueDate: document.querySelector("#editTaskDueDate").value,
+            priority: document.querySelector("#editTaskPriority").value,
+            notes: document.querySelector("#editTaskNotes").value,
+        };
+      
+        const taskId = editTaskDialog.dataset.taskId;
+      
+        // run taskGenerator.js function to update task object and re-render it
+        updateTaskById(taskId, updatedTask);
+      
+        editTaskDialog.close();
+      });
 
 });

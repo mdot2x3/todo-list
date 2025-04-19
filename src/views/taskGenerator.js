@@ -34,9 +34,8 @@ export function createTaskItemElement(taskItem) {
     checkbox.addEventListener("click", (e) => {
         // stop bubbling to taskHeader click
         e.stopPropagation();
-        // update internal model
-        taskItem.toggleCheckbox();
-        // reflect state
+        // directly toggle here instead of old internal TaskItem.js method because you are no longer passing a class instance of TaskItem into createTaskItemElement, but instead a plain object (possibly from localStorage, a JSON parse, or constructed differently)
+        taskItem.checkbox = !taskItem.checkbox;
         checkbox.checked = taskItem.checkbox;
         // add class "completed" to checked box
         taskElement.classList.toggle("completed", taskItem.checkbox);
@@ -67,6 +66,7 @@ export function createTaskItemElement(taskItem) {
     const taskDetails = document.createElement("div");
     taskDetails.classList.add("taskDetails");
     taskDetails.innerHTML = `
+        <span class="settingsIcon">⚙</span>
         <p><strong>Description:</strong> ${taskItem.description}</p>
         <p><strong>Due Date:</strong> ${taskItem.dueDate}</p>
         <p><strong>Priority:</strong> ${taskItem.priority}</p>
@@ -85,6 +85,28 @@ export function createTaskItemElement(taskItem) {
      taskHeader.addEventListener("click", () => {
         taskElement.classList.toggle("expanded");
     });
+
+    // select cog button
+    const settingsIcon = taskDetails.querySelector(".settingsIcon");
+
+    // click on cog opens editing dialog modal
+    settingsIcon.addEventListener("click", (e) => {
+        // prevent expanding/collapsing
+        e.stopPropagation();
+
+        // fill in current task details as placeholder text
+        document.querySelector("#editTaskTitle").value = taskItem.title;
+        document.querySelector("#editTaskDescription").value = taskItem.description;
+        document.querySelector("#editTaskDueDate").value = taskItem.dueDate;
+        document.querySelector("#editTaskPriority").value = taskItem.priority;
+        document.querySelector("#editTaskNotes").value = taskItem.notes || "";
+      
+        // store reference to task object or element if needed for submission
+        editTaskDialog.dataset.taskId = taskItem.id;
+      
+        // show the modal
+        document.querySelector("#editTaskDialog").showModal();
+      });
     
     return taskElement;
 }
@@ -274,4 +296,37 @@ export function handleTaskListSubmission() {
         taskListInput.value = "";
         document.querySelector(".taskListInputDiv").classList.add("hidden");
     });
+}
+
+export function updateTaskById(taskId, updatedTask) {
+    // find the task element in projectStorage
+    const taskElement = document.querySelector(`.taskItem[data-task-item-id="${taskId}"]`);
+    if (!taskElement) {
+        console.error(`Task with ID ${taskId} not found in the DOM.`);
+        return;
+    }
+
+      // !!!!! Optional: Update the underlying data model here, if you're storing tasks in memory !!!!!
+
+    // replace the task DOM with an updated one
+    const projectId = taskElement.closest(".projectCard").dataset.projectId;
+    const taskListElement = taskElement.closest(".taskList");
+    const taskListId = taskListElement ? taskListElement.dataset.taskListId : null;
+    const taskListTitle = taskListElement ? taskListElement.querySelector("h5").textContent : null;
+
+    // remove the old element
+    taskElement.remove();
+
+    // rebuild the updated task object
+    const updatedTaskItem = {
+        id: taskId,
+        projectId: projectId,
+        // or retain previous state
+        checkbox: false,
+        // pull data from appUI.js variable
+        ...updatedTask,
+    };
+
+    // add the updated task back into the UI
+    addTaskToUI(updatedTaskItem, projectId, taskListId, taskListTitle);
 }

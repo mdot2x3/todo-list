@@ -12,9 +12,4 @@ export class TaskItem {
         this.taskListId = taskListId;
         this.checkbox = false;
     }
-
-    toggleCheckbox() {
-        // calling this will flip its boolean value
-        this.checkbox = !this.checkbox;
-    }
 }
