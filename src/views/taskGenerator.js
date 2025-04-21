@@ -21,6 +21,9 @@ export function createTaskItemElement(taskItem) {
 
         // remove from DOM
         taskElement.remove();
+
+        // update the task progress count
+        updateTaskProgressStatus(taskItem.taskListId);
     });
 
     // create checkbox for task completion
@@ -39,11 +42,14 @@ export function createTaskItemElement(taskItem) {
         checkbox.checked = taskItem.checkbox;
         // add class "completed" to checked box
         taskElement.classList.toggle("completed", taskItem.checkbox);
+
+        // update the task progress count
+        updateTaskProgressStatus(taskItem.taskListId);
     });
 
-     // create taskContent container
-     const taskContent = document.createElement("div");
-     taskContent.classList.add("taskContent");
+    // create taskContent container
+    const taskContent = document.createElement("div");
+    taskContent.classList.add("taskContent");
 
     // task header (always visible, colored)
     const taskHeader = document.createElement("div");
@@ -150,9 +156,16 @@ export function createTaskListElement(taskListId, taskListTitle) {
     const title = document.createElement("h5");
     title.textContent = taskListTitle;
 
+    // create task progress tracker
+    const taskProgress = document.createElement("div");
+    taskProgress.classList.add("taskProgressCounter");
+    taskProgress.dataset.taskListId = taskListId;
+    taskProgress.textContent = "Tasks Remaining: 0 of 0";
+
     taskListHeader.appendChild(deleteListButton);
     taskListHeader.appendChild(arrow);
     taskListHeader.appendChild(title);
+    taskListHeader.appendChild(taskProgress);
     taskListContainer.appendChild(taskListHeader);
 
     // create the ul of tasks and hide it initially
@@ -190,6 +203,9 @@ export function addTaskToUI(taskItem, projectId, taskListId, taskListTitle) {
 
         const taskListUL = taskListContainer.querySelector("ul");
         taskListUL.appendChild(taskElement);
+
+        // update task progress after appending
+        updateTaskProgressStatus(taskListId);
     } else {
         // if no list selected or 'None' was selected
         const unassignedTaskGroup = projectCard.querySelector(".unassignedTaskGroup");
@@ -329,4 +345,17 @@ export function updateTaskById(taskId, updatedTask) {
 
     // add the updated task back into the UI
     addTaskToUI(updatedTaskItem, projectId, taskListId, taskListTitle);
+}
+
+function updateTaskProgressStatus(taskListId) {
+    const taskListContainer = document.querySelector(`.taskList[data-task-list-id="${taskListId}"]`);
+    if (!taskListContainer) return;
+
+    const tasks = taskListContainer.querySelectorAll("li.taskItem");
+    const completedTasks = taskListContainer.querySelectorAll("li.taskItem.completed");
+
+    const taskProgress = taskListContainer.querySelector(".taskProgressCounter");
+    if (taskProgress) {
+        taskProgress.textContent = `Tasks Remaining: ${tasks.length - completedTasks.length} of ${tasks.length}`;
+    }
 }

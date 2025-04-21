@@ -378,6 +378,14 @@ does not stretch beyond its container */
   background: darkred;
 }
 
+/* settings for task progress counter */
+.taskProgressCounter {
+  margin-top: 8px;
+  margin-left: auto;
+  font-size: 0.85em;
+  color: #555;
+}
+
 /* ---all task item css settings--- */
 
 /* entire task li gets the priority color as background, except checkbox area */
