@@ -15,6 +15,6 @@ export class TaskList {
     }
 
     getTaskItemById(taskItemId) {
-        return this.taskListArrayOfTaskItems.find(arrayElement => arrayElement.title === taskItemId);
+        return this.taskListArrayOfTaskItems.find(arrayElement => arrayElement.id === taskItemId);
     }
 }

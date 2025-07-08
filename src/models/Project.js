@@ -1,5 +1,3 @@
-import { projectStorage } from "./projectStorage";
-
 export class Project {
     constructor(title, description, dueDate, priority) {
         this.id = crypto.randomUUID();
@@ -35,15 +33,5 @@ export class Project {
 
     getTaskItemById(taskItemId) {
         return this.projectArrayOfTaskItems.find(arrayElement => arrayElement.id === taskItemId);
-    }
-
-    removeProject() {
-        const projectIndex = projectStorage.findIndex(arrayElement => arrayElement.id === this.id);
-        if (projectIndex !== -1) {
-            projectStorage.splice(projectIndex, 1);
-            console.log(`Project "${this.title}" removed.`);
-        } else {
-            console.log(`Project with ID "${this.id}" not found.`);
-        }
     }
 }

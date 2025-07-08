@@ -1,10 +1,13 @@
 import { projectFormSubmission, taskFormSubmission } from "./formHandler.js";
-import { projectStorage } from "../models/projectStorage.js";
+import { loadFromLocalStorage, projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
 import { toggleExpandProjectCard } from "./projectCardHandler.js";
-import { showTaskListInput, resetTaskListInput, handleTaskListSubmission, populateTaskListDropdown, updateTaskById } from "./taskGenerator.js";
+import { showTaskListInput, resetTaskListInput, handleTaskListSubmission,
+         populateTaskListDropdown, updateTaskById, addTaskToUI
+} from "./taskGenerator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+    loadFromLocalStorage();
     const contentArea = document.querySelector("#content");
 
     const addProjectDialog = document.querySelector("#addProjectDialog");
@@ -40,8 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // listen for addProject submit, run formHandler.js function
     submitAddProject.addEventListener("click", projectFormSubmission);
 
-    // load any saved projects in projectStorage as cards, even on refresh
-    projectStorage.forEach(createProjectCard);
+    // load any saved projects in localStorage as cards, even on refresh
+    projectStorage.forEach(project => {
+        createProjectCard(
+            project.title,
+            project.description,
+            project.dueDate,
+            project.priority,
+            project.id
+        );
+
+        // render unassigned task items
+        project.projectArrayOfTaskItems.forEach(task => {
+            addTaskToUI(task, project.id, null);
+        });
+
+        // render task lists and their tasks
+        project.projectArrayOfTaskLists.forEach(taskList => {
+            taskList.taskListArrayOfTaskItems.forEach(task => {
+                addTaskToUI(task, project.id, taskList.id, taskList.title);
+            });
+        });
+    });
 
     // listen for project card clicks, run projectCardHandler.js function
     // ensures that when a modal is open, clicking outside will not collapse the expanded project card

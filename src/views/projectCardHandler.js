@@ -1,3 +1,5 @@
+import { deleteProject } from "../controllers/projectController.js";
+
 export function toggleExpandProjectCard(event) {
     const clickedCard = event.target.closest(".projectCard");
     const isDeleteButton = event.target.id === "deleteProject";
@@ -120,6 +122,11 @@ export function toggleExpandProjectCard(event) {
             document.removeEventListener("click", closeOnOutsideClick);
         }
         
+        // deletes from storage and saves update to localStorage
+        const projectId = card.dataset.projectId;
+        deleteProject(projectId);
+
+        // remove from DOM
         card.remove();
     }
 }

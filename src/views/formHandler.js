@@ -24,7 +24,16 @@ export function projectFormSubmission(event) {
     // use FormData instead of querySelector to extract values
     const title = formData.get("title");
     const description = formData.get("description");
-    const dueDate = formData.get("dueDate");
+
+    // fix timezone offset to ensure date selected in modal matches card display
+    const dueDateString = formData.get("dueDate");
+    const dueDate = parseDateFromInput(dueDateString);
+    function parseDateFromInput(inputDateString) {
+        const [year, month, day] = inputDateString.split("-").map(Number);
+        // month is 0-indexed
+        return new Date(year, month - 1, day);
+    }
+
     const priority = formData.get("priority");
 
     // correctly assigns newProject

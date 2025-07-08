@@ -1,9 +1,10 @@
 import { Project } from "../models/Project.js";
-import { projectStorage } from "../models/projectStorage.js";
+import { projectStorage, saveToLocalStorage } from "../models/projectStorage.js";
 
 export function createProject(title, description, dueDate, priority) {
     const newProject = new Project(title, description, dueDate, priority);
     projectStorage.push(newProject);
+    saveToLocalStorage();
     console.log(`Project "${title}" created.`);
     return newProject;
 }
@@ -13,6 +14,7 @@ export function addTaskListToProject(projectId, taskList) {
     if (project) {
         // utilize Project class method
         project.addTaskList(taskList);
+        saveToLocalStorage();
         console.log(`Task List "${taskList.title}" added to Project: "${project.title}".`);
     } else {
         console.log(`Project with ID ${projectId} not found.`);
@@ -27,6 +29,7 @@ export function removeTaskListFromProject(taskList) {
     if (project) {
         // utilize Project class method
         project.removeTaskList(taskList.id);
+        saveToLocalStorage();
         console.log(`Task List "${taskList.title}" removed from Project: "${project.title}".`);
     } else {
         console.log(`Task List with ID "${taskList.id}" not found.`);
@@ -37,6 +40,7 @@ export function addTaskItemToProject(projectId, taskItem) {
     const project = projectStorage.find(arrayElement => arrayElement.id === projectId);
     if (project) {
         project.addTaskItem(taskItem);
+        saveToLocalStorage();
         console.log(`Task Item "${taskItem.title}" added to Project: "${project.title}".`);
     } else {
         console.log(`Project with ID ${projectId} not found.`);
@@ -47,6 +51,7 @@ export function removeTaskItemFromProject(projectId, taskItemId) {
     const project = projectStorage.find(arrayElement => arrayElement.id === projectId);
     if (project) {
         project.removeTaskItem(taskItemId);
+        saveToLocalStorage();
         console.log(`Task Item with ID "${taskItemId}" removed from Project: "${project.title}".`);
     } else {
         console.log(`Project with ID ${projectId} not found.`);
@@ -79,10 +84,12 @@ export function viewAllProjects() {
     });
 }
 
-export function deleteProject(productId) {
-    const project = projectStorage.find(arrayElement => arrayElement.id === productId);
-    if (project) {
-        project.removeProject();
+export function deleteProject(projectId) {
+    const index = projectStorage.findIndex(arrayElement => arrayElement.id === projectId);
+    if (index !== -1) {
+        projectStorage.splice(index, 1);
+        saveToLocalStorage();
+        console.log(`Project with ID "${projectId}" deleted.`);
     } else {
         console.log(`Project with ID "${projectId}" not found.`);
     }

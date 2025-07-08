@@ -9,7 +9,7 @@ export class TaskItem {
         this.dueDate = dueDate;
         this.priority = priority;
         this.notes = notes;
-        this.taskListId = taskListId;
+        this.taskListId = taskListId || null;
         this.checkbox = false;
     }
 }

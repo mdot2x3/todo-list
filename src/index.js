@@ -1,6 +1,7 @@
 import "./style.css";
 import "./views/appUI.js";
-import { createProject, deleteProject, removeTaskListFromProject, removeTaskItemFromProject, viewAllProjects } from "./controllers/projectController.js";
+import { createProject, deleteProject, removeTaskListFromProject, 
+         removeTaskItemFromProject, viewAllProjects } from "./controllers/projectController.js";
 import { createTaskList, removeTaskItemFromTaskList } from "./controllers/taskListController.js";
 import { createTaskItem } from "./controllers/taskItemController.js";
 import { createProjectCard } from "./views/cardGenerator.js";
@@ -58,9 +59,10 @@ deleteProject(project2.id);
 viewAllProjects();
 */
 
-createProjectCard("title1", "description", "dueDate", "priority", 1);
-createProjectCard("title2", "description", "dueDate", "priority", 2);
-createProjectCard("title33333333333333333333333333333333", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority", 3);
-createProjectCard("title4", "description", "dueDate", "priority", 4);
-createProjectCard("title5", "description", "dueDate", "priority", 5);
-createProjectCard("title6666666666666666666666666666", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority", 6);
+
+// createProjectCard("title1", "description", "dueDate", "priority", 1);
+// createProjectCard("title2", "description", "dueDate", "priority", 2);
+// createProjectCard("title33333333333333333333333333333333", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority", 3);
+// createProjectCard("title4", "description", "dueDate", "priority", 4);
+// createProjectCard("title5", "description", "dueDate", "priority", 5);
+// createProjectCard("title6666666666666666666666666666", "descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "dueDate", "priority", 6);

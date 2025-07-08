@@ -1,5 +1,6 @@
-import { createTaskList } from "../controllers/taskListController.js";
+import { createTaskList, removeTaskItemFromTaskList } from "../controllers/taskListController.js";
 import { removeTaskItemFromProject, removeTaskListFromProject } from "../controllers/projectController.js";
+import { saveToLocalStorage, projectStorage } from "../models/projectStorage.js";
 
 export function createTaskItemElement(taskItem) {
     const taskElement = document.createElement("li");
@@ -15,9 +16,33 @@ export function createTaskItemElement(taskItem) {
     // prevent click from toggling the dropdown
     deleteButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        // call the controller.js function to delete this task
-        const projectId = taskItem.projectId;
-        removeTaskItemFromProject(projectId, taskItem.id);
+        let projectId = taskItem.projectId;
+
+        // fallback; if not defined (from localStorage object), recover from DOM
+        if (!projectId) {
+            const taskElement = e.target.closest(".taskItem");
+            const projectCard = taskElement.closest(".projectCard");
+            if (projectCard) {
+                projectId = projectCard?.dataset?.projectId;
+                // recover and set
+                taskItem.projectId = projectId;
+            }
+        }
+        if (!projectId) {
+            console.error("Missing projectId for taskItem during delete.");
+            return;
+        }
+
+        if (taskItem.taskListId && taskItem.taskListId !== "none") {
+            // call the controller.js function to delete this task
+            // assigned to task list
+            removeTaskItemFromTaskList(taskItem.taskListId, taskItem.id);
+        } else {
+            // unassigned task
+            removeTaskItemFromProject(projectId, taskItem.id);
+        }
+
+        saveToLocalStorage();
 
         // remove from DOM
         taskElement.remove();
@@ -139,8 +164,22 @@ export function createTaskListElement(taskListId, taskListTitle) {
         const confirmed = confirm("Delete this task list and all its tasks?");
         if (!confirmed) return;
 
-        // call the controller.js function to delete this task
-        removeTaskListFromProject(taskListId);
+        const taskListId = taskListContainer.dataset.taskListId;
+
+        // find the related project
+        const projectCard = taskListContainer.closest(".projectCard");
+        const projectId = projectCard.dataset.projectId;
+        const project = projectStorage.find(p => p.id === projectId);
+        const taskList = project?.getTaskListById(taskListId);
+
+        if (taskList) {
+            // call the controller.js function to delete this task
+            // pass full object
+            removeTaskListFromProject(taskList);
+            saveToLocalStorage();
+        } else {
+            console.warn(`Could not find task list with ID ${taskListId} for deletion.`);
+        }
 
         // remove from DOM
         taskListContainer.remove();

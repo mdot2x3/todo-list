@@ -8,6 +8,13 @@ export function createProjectCard(title, description, dueDate, priority, project
     // store project id of created card in dataset
     card.dataset.projectId = projectId;
 
+    // change the date format for card Due Date
+    const formattedDate = new Date(dueDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    });
+
     // add project details to card
     card.innerHTML = `
         <div class="projectCardHeader">
@@ -18,7 +25,7 @@ export function createProjectCard(title, description, dueDate, priority, project
 
         <div class="projectCardBody">
             <p>${description}</p>
-            <p><strong>Due Date:</strong> ${dueDate}</p>
+            <p><strong>Due Date:</strong> ${formattedDate}</p>
             <p><strong>Priority:</strong> ${priority}</p>
         </div>
 
