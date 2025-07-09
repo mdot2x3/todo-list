@@ -58,6 +58,11 @@ export function createTaskItemElement(taskItem) {
     // reflect current checkbox state
     checkbox.checked = taskItem.checkbox;
 
+    // make sure that if a task is checked, it will have styling applied even after page reload
+    if (taskItem.checkbox) {
+        taskElement.classList.add("completed");
+    }
+
     // prevent checkbox click from toggling dropdown
     checkbox.addEventListener("click", (e) => {
         // stop bubbling to taskHeader click
@@ -70,6 +75,8 @@ export function createTaskItemElement(taskItem) {
 
         // update the task progress count
         updateTaskProgressStatus(taskItem.taskListId);
+
+        saveToLocalStorage();
     });
 
     // create taskContent container
