@@ -32,14 +32,6 @@ export function toggleExpandProjectCard(event) {
     }
 
     function expandCard(card) {
-         // show the minimize button when expanded
-        const minimizeButton = card.querySelector("#minimizeProject");
-        if (minimizeButton) minimizeButton.classList.remove("hidden");
-
-        // show the task section when expanded
-        const taskSection = card.querySelector(".taskSection");
-        if (taskSection) taskSection.classList.remove("hidden");
-
         // create a placeholder div to occupy the original space
         const placeholder = document.createElement("div");
         placeholder.classList.add("projectCardPlaceholder");
@@ -59,6 +51,14 @@ export function toggleExpandProjectCard(event) {
         // stores a reference to the placeholder element inside the card for later removal
         card.dataset.placeholderId = placeholder;
         
+        // show the minimize button when expanded
+        const minimizeButton = card.querySelector("#minimizeProject");
+        if (minimizeButton) minimizeButton.classList.remove("hidden");
+
+        // show the task section when expanded
+        const taskSection = card.querySelector(".taskSection");
+        if (taskSection) taskSection.classList.remove("hidden");
+
         // close card on outside click
         setTimeout(() => {
             document.addEventListener("click", closeOnOutsideClick);
