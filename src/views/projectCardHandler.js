@@ -51,6 +51,8 @@ export function toggleExpandProjectCard(event) {
         // stores a reference to the placeholder element inside the card for later removal
         card.dataset.placeholderId = placeholder;
         
+        // note: the following two sections need to be here at the bottom (unlike in shrinkCard below)
+        // in order to eliminate the neighboring cards stretching and resizing issue that existed
         // show the minimize button when expanded
         const minimizeButton = card.querySelector("#minimizeProject");
         if (minimizeButton) minimizeButton.classList.remove("hidden");
@@ -59,9 +61,10 @@ export function toggleExpandProjectCard(event) {
         const taskSection = card.querySelector(".taskSection");
         if (taskSection) taskSection.classList.remove("hidden");
 
-        // close card on outside click
+        // close card on outside click and escape key click
         setTimeout(() => {
             document.addEventListener("click", closeOnOutsideClick);
+            document.addEventListener("keydown", closeOnEscape);
         }, 10);
     }
 
@@ -95,7 +98,10 @@ export function toggleExpandProjectCard(event) {
         // remove modal effects
         card.classList.remove("expanded");
         document.body.classList.remove("modalOpen");
+
+        // remove listeners
         document.removeEventListener("click", closeOnOutsideClick);
+        document.removeEventListener("keydown", closeOnEscape);
     }
 
     function closeOnOutsideClick(event) {
@@ -107,6 +113,23 @@ export function toggleExpandProjectCard(event) {
         // if the clicked target is outside the expanded card, shrink it
         if (!theExpandedCard.contains(event.target)) {
             shrinkCard(theExpandedCard);
+        }
+    }
+
+    function closeOnEscape(event) {
+        if (event.key !== "Escape") return;
+
+        // check if any <dialog> is open
+        const openDialog = document.querySelector("dialog[open]");
+        if (openDialog) {
+            // let the dialog handle its own escape logic
+            return;
+        }
+
+        // otherwise, close the expanded project card
+        const expandedCard = document.querySelector(".projectCard.expanded");
+        if (expandedCard) {
+            shrinkCard(expandedCard);
         }
     }
 
