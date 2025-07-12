@@ -33,11 +33,21 @@ nav ul {
   padding: 25px;
 }
 
-#addProjectDialog {
-  position: absolute;
+/* center dialog boxes on window, replaces former #addProjectDialog, #addTaskDialog, and #editTaskDialog */
+dialog {
+  position: fixed;
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  max-height: 90vh;
+  overflow-y: auto;
+  pointer-events: auto;
 }
 
 .projectCard {
@@ -261,19 +271,6 @@ does not stretch beyond its container */
   color: #333;
 }
 
-#addTaskDialog {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  /* enable clicks on the new dialog box */
-  pointer-events: auto;
-}
-
 /* control task list select dropdown bar size */
 #taskListSelection {
   max-width: 100%;
@@ -296,18 +293,6 @@ does not stretch beyond its container */
   display: none;
 }
 
-/* edit task modal settings */
-#editTaskDialog {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  pointer-events: auto;
-}
 
 /* ---(with above) all task list css settings--- */
 
