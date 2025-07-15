@@ -5,6 +5,7 @@ import { toggleExpandProjectCard } from "./projectCardHandler.js";
 import { showTaskListInput, resetTaskListInput, handleTaskListSubmission,
          populateTaskListDropdown, updateTaskById, addTaskToUI
 } from "./taskGenerator.js";
+import { checkIfNoProjects } from "../index.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     loadFromLocalStorage();
@@ -146,4 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
         editTaskDialog.close();
       });
 
+      // should be at the very bottom of the DOMContentLoaded block
+      checkIfNoProjects();
 });

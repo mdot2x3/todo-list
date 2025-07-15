@@ -508,3 +508,26 @@ does not stretch beyond its container */
 .deleteTaskButton:hover {
   background: darkred;
 }
+
+#welcomeModal {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 500px;
+  width: 90%;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 10;
+  text-align: center;
+}
+
+.welcomeContent h2 {
+  margin-top: 0;
+}
+
+.welcomeContent p {
+  margin: 10px 0;
+}

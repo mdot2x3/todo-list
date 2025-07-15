@@ -3,6 +3,7 @@ import { projectStorage } from "../models/projectStorage.js";
 import { createProjectCard } from "./cardGenerator.js";
 import { createTaskItem } from "../controllers/taskItemController.js";
 import { addTaskToUI } from "./taskGenerator.js";
+import { checkIfNoProjects } from "../index.js";
 
 export function projectFormSubmission(event) {
     // prevent page reload on submit
@@ -49,9 +50,9 @@ export function projectFormSubmission(event) {
     createProjectCard(title, description, dueDate, priority, newProject.id);
     
     addProjectDialog.close();
+
+    checkIfNoProjects();
 }
-
-
 
 export function taskFormSubmission(event) {
     event.preventDefault();

@@ -1,4 +1,5 @@
 import { deleteProject } from "../controllers/projectController.js";
+import { checkIfNoProjects } from "../index.js";
 
 export function toggleExpandProjectCard(event) {
     const clickedCard = event.target.closest(".projectCard");
@@ -151,5 +152,7 @@ export function toggleExpandProjectCard(event) {
 
         // remove from DOM
         card.remove();
+
+        checkIfNoProjects();
     }
 }

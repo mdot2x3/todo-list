@@ -6,6 +6,17 @@ import { createTaskList, removeTaskItemFromTaskList } from "./controllers/taskLi
 import { createTaskItem } from "./controllers/taskItemController.js";
 import { createProjectCard } from "./views/cardGenerator.js";
 
+// checks content section for project cards, if none exist, display instructions pop up
+export function checkIfNoProjects() {
+  const projectContainer = document.getElementById("content");
+  const welcomeModal = document.getElementById("welcomeModal");
+
+  if (!projectContainer || !welcomeModal) return;
+
+  const hasProjects = projectContainer.querySelectorAll(".projectCard").length > 0;
+  welcomeModal.style.display = hasProjects ? "none" : "block";
+}
+
 /*
 // backend functionality - test data 1
 const project1 = createProject("Project 1", "Project description", "3/10/2025", "High");
