@@ -3,7 +3,7 @@ import { loadFromLocalStorage, projectStorage } from "../models/projectStorage.j
 import { createProjectCard } from "./cardGenerator.js";
 import { toggleExpandProjectCard } from "./projectCardHandler.js";
 import { showTaskListInput, resetTaskListInput, handleTaskListSubmission,
-         populateTaskListDropdown, updateTaskById, addTaskToUI
+         populateTaskListDropdown, updateTaskById, addTaskToUI, renderEmptyTaskList
 } from "./taskGenerator.js";
 import { checkIfNoProjects } from "../index.js";
 
@@ -59,11 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
             addTaskToUI(task, project.id, null);
         });
 
-        // render task lists and their tasks
+        // render task lists and their assigned tasks
         project.projectArrayOfTaskLists.forEach(taskList => {
-            taskList.taskListArrayOfTaskItems.forEach(task => {
-                addTaskToUI(task, project.id, taskList.id, taskList.title);
-            });
+            // always create the container even if empty
+            if (taskList.taskListArrayOfTaskItems.length === 0) {
+                renderEmptyTaskList(project.id, taskList.id, taskList.title);
+            } else {
+                taskList.taskListArrayOfTaskItems.forEach(task => {
+                    addTaskToUI(task, project.id, taskList.id, taskList.title);
+                });
+            }
         });
     });
 
@@ -75,8 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleExpandProjectCard(event);
         }
     });
-
-
 
     // open input modal when clicking "+ New Task"
     // #addTaskButton is dynamically added via the DOM when a project expands, must delegate the listener

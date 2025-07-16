@@ -53,24 +53,28 @@ export function loadFromLocalStorage() {
                 const taskList = new TaskList(taskListObj.title, taskListObj.projectId);
                 taskList.id = taskListObj.id;
 
-                taskList.taskListArrayOfTaskItems = taskListObj.taskListArrayOfTaskItems.map(taskObj => {
-                    const task = new TaskItem(
-                        taskObj.title,
-                        taskObj.description,
-                        new Date(taskObj.dueDate),
-                        taskObj.priority,
-                        taskObj.notes,
-                        // set taskListId
-                        taskList.id
-                    );
-                    task.id = taskObj.id;
-                    task.checkbox = !!taskObj.checkbox;
-                    task.projectId = project.id;
-                    return task;
-                });
+                 // always initialize the array, even if empty, to preserve empty lists after refresh
+                taskList.taskListArrayOfTaskItems = [];
 
-                return taskList;
-            });
+                if (Array.isArray(taskListObj.taskListArrayOfTaskItems)) {
+                    taskList.taskListArrayOfTaskItems = taskListObj.taskListArrayOfTaskItems.map(taskObj => {
+                        const task = new TaskItem(
+                            taskObj.title,
+                            taskObj.description,
+                            new Date(taskObj.dueDate),
+                            taskObj.priority,
+                            taskObj.notes,
+                            // set taskListId
+                            taskList.id
+                        );
+                        task.id = taskObj.id;
+                        task.checkbox = !!taskObj.checkbox;
+                        task.projectId = project.id;
+                        return task;
+                    });
+                }
+                    return taskList;
+                });
 
             // push the fully reconstructed project into storage
             projectStorage.push(project);

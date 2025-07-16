@@ -49,6 +49,9 @@ export function createTaskItemElement(taskItem) {
 
         // update the task progress count
         updateTaskProgressStatus(taskItem.taskListId);
+
+        // check if any tasks exist, otherwise remove section header
+        updateUnassignedTasksVisibility(projectId);
     });
 
     // create checkbox for task completion
@@ -190,6 +193,9 @@ export function createTaskListElement(taskListId, taskListTitle) {
 
         // remove from DOM
         taskListContainer.remove();
+
+        // check if any task lists exist, otherwise remove section header
+        updateTaskListVisibility(projectId);
     });
 
     // create an arrow indicating open/closed
@@ -281,12 +287,12 @@ export function resetTaskListInput() {
 
     if (!taskListInputDiv) return;
 
-    // Hide input field when dialog closes
+    // hide input field when dialog closes
     addTaskDialog.addEventListener("close", () => {
         taskListInputDiv.classList.add("hidden");
     });
 
-    // Hide input field when submitting task
+    // hide input field when submitting task
     addTaskForm.addEventListener("submit", () => {
         taskListInputDiv.classList.add("hidden");
     });
@@ -315,7 +321,6 @@ export function populateTaskListDropdown(projectId) {
         dropdown.appendChild(option);
     });
 }
-
 
 export function handleTaskListSubmission() {
     const submitTaskListButton = document.querySelector("#submitTaskList");
@@ -403,5 +408,42 @@ function updateTaskProgressStatus(taskListId) {
     const taskProgress = taskListContainer.querySelector(".taskProgressCounter");
     if (taskProgress) {
         taskProgress.textContent = `Tasks Remaining: ${tasks.length - completedTasks.length} of ${tasks.length}`;
+    }
+}
+
+export function updateUnassignedTasksVisibility(projectId) {
+  const projectCard = document.querySelector(`.projectCard[data-project-id="${projectId}"]`);
+  if (!projectCard) return;
+
+  const unassignedList = projectCard.querySelector(".unassignedTaskGroup");
+  const unassignedSection = projectCard.querySelector(".unassignedTasks");
+
+  const hasTasks = unassignedList && unassignedList.querySelectorAll("li").length > 0;
+
+  // toggle the entire section
+  unassignedSection.classList.toggle("hidden", !hasTasks);
+}
+
+export function updateTaskListVisibility(projectId) {
+  const projectCard = document.querySelector(`.projectCard[data-project-id="${projectId}"]`);
+  if (!projectCard) return;
+
+  const taskListContainer = projectCard.querySelector(".taskListContainer");
+  const hasTaskLists = taskListContainer && taskListContainer.querySelectorAll(".taskList").length > 0;
+
+  taskListContainer.classList.toggle("hidden", !hasTaskLists);
+}
+
+export function renderEmptyTaskList(projectId, taskListId, taskListTitle) {
+    const projectCard = document.querySelector(`.projectCard[data-project-id="${projectId}"]`);
+    if (!projectCard) return;
+
+    const taskListContainer = projectCard.querySelector(".taskListContainer");
+
+    // only add it if it doesn't already exist
+    if (!taskListContainer.querySelector(`.taskList[data-task-list-id="${taskListId}"]`)) {
+        const taskListElement = createTaskListElement(taskListId, taskListTitle);
+        taskListContainer.classList.remove("hidden");
+        taskListContainer.appendChild(taskListElement);
     }
 }
