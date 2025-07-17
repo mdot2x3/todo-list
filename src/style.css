@@ -124,6 +124,20 @@ does not stretch beyond its container */
   text-overflow: ellipsis;
   width: 100%;
 }
+/* priority badge */
+.priorityTag {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: white;
+  margin-top: 0.5rem;
+}
+.priority-low { background: #3b82f6; }
+.priority-medium { background: #facc15; color: #1e1b34; }
+.priority-high { background: #f97316; }
+.priority-urgent { background: #ef4444; }
 
 /* === buttons === */
 #openAddProject {
@@ -142,16 +156,21 @@ does not stretch beyond its container */
 
 /* === delete button on cards === */
 #deleteProject {
-  float: right;
+  display: flex;
   background: transparent;
-  border: none;
+  border: 1px solid #f87171;
   color: #f87171;
   font-size: 1rem;
+  font-weight: bolder;
   cursor: pointer;
   transition: transform 0.2s ease;
+  padding-top: 2px;
+  border-radius: 25%;
+  width: 24px;
+  height: 24px;
 }
 #deleteProject:hover {
-  transform: scale(1.3);
+  transform: scale(1.1);
   color: #ef4444;
 }
 
@@ -159,18 +178,16 @@ does not stretch beyond its container */
 .projectCardHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   /* make sure header stays fixed on card expansion */
   padding-bottom: 10px;
-  position: sticky;
   top: 0;
   z-index: 5;
 }
 
 /* prevent overlap of title with delete button */
 .projectCardHeader h3 {
-  max-width: 80%; 
+  max-width: 80%;
 }
 
 /* === modal form layout === */
@@ -213,8 +230,11 @@ dialog button {
   font-size: 1rem;
 }
 #closeAddProject, #closeAddTask, #closeEditTask {
-  background: #3a3a52;
+  background: #2d2d42;
   color: #f3f4f6;
+}
+#closeAddProject:hover, #closeAddTask:hover, #closeEditTask:hover {
+  background: #26264d;
 }
 #submitAddProject, #submitAddTask, #submitEditTask {
   background: #a78bfa;
@@ -254,19 +274,23 @@ dialog button {
   left: 50%;
   /* centers the card horizontally(-50%) but prevents vertical centering(0%) so it grows downward with the content */
   transform: translate(-50%, 0%);
-  height: auto;
-  width: 60vw;
-  max-width: 500px;
+  width: 90vw;
+  max-width: 700px;
   z-index: 10;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.97);
+  color: #1e1b34;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   /* enable clicks on the expanded card */
   pointer-events: auto;
   /* animation transition from bottom-up */
   transform-origin: center top;
   animation: slideUpFade 0.3s ease-out;
+  overflow-y: auto;
+  max-height: 85vh;
+  backdrop-filter: blur(8px);
+  cursor: auto;
 }
 @keyframes slideUpFade {
   from {
@@ -320,9 +344,7 @@ dialog button {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 0px;
-  right: 24px;
+  margin-right: -50px;
   background: darkgrey;
   color: white;
   border: none;
@@ -347,23 +369,24 @@ dialog button {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 10px;
+  padding-top: 1rem;
 }
 /* remove automatic indent on li items */
 .taskSection ul {
   margin: 0px;
   padding: 0px;
 }
-#addTaskButton {
-  background: dodgerblue;
+.taskSection button#addTaskButton {
+  background: #4f46e5;
   color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
   cursor: pointer;
 }
-#addTaskButton:hover {
-  background: royalblue;
+.taskSection button#addTaskButton:hover {
+  background: #4338ca;
 }
 /* hide task section */
 .taskSection.hidden {
@@ -391,7 +414,8 @@ dialog button {
   color: #333;
 }
 
-/* === control task list select dropdown bar size === */
+/* === task list section === */
+/* control task list select dropdown bar size */
 #taskListSelection {
   max-width: 100%;
   width: 100%;
@@ -400,15 +424,33 @@ dialog button {
   text-overflow: ellipsis;
   display: inline-block;
 }
-
+.unassignedTasks h4,
+.taskListContainer h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #a78bfa;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.unassignedTasks h4::before {
+  /* fontawesome fa-tasks */
+  content: "\f0ae";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+.taskListContainer h4::before {
+  /* fontawesome fa-list */
+  content: "\f022"; 
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
 .unassignedTasks.hidden {
   display: none;
 }
-
 .taskListContainer.hidden {
   display: none;
 }
-
 .taskListInputDiv.hidden {
   display: none;
 }
@@ -636,7 +678,7 @@ dialog button {
 /* === welcome modal === */
 #welcomeModal {
   position: fixed;
-  top: 25%;
+  top: 35%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(20, 18, 38, 0.92);

@@ -26,7 +26,10 @@ export function createProjectCard(title, description, dueDate, priority, project
         <div class="projectCardBody">
             <p>${description}</p>
             <p><strong>Due Date:</strong> ${formattedDate}</p>
-            <p><strong>Priority:</strong> ${priority}</p>
+            <p><strong>Priority:</strong>
+            <span class="priorityTag priority-${priority.toLowerCase()}">
+                ${priority}
+            </span></p>
         </div>
 
         <div class="taskSection hidden">
