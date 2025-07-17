@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo List App</title>
+  <!-- modern fonts and icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-
   <header>
     <nav>
       <ul>
@@ -27,17 +29,18 @@
     </div>
   </div>
 
+<main id="main" class="mainContainer">
   <div id="addProjectDiv">
     <button id="openAddProject">+</button>
     <dialog id="addProjectDialog">
       <form action="" id="addProjectForm" novalidate>
-        <label for="projectTitle">Title:</label><br>
-        <input type="text" id="projectTitle" name="title" required><br>
-        <label for="projectDescription">Description:</label><br>
-        <input type="text" id="projectDescription" name="description" required><br>
-        <label for="projectDueDate">Due Date:</label><br>
-        <input type="date" id="projectDueDate" name="dueDate" required min="1"><br>
-        <label for="projectPriority">Priority Level:</label>
+        <label for="projectTitle">Title</label>
+        <input type="text" id="projectTitle" name="title" required>
+        <label for="projectDescription">Description</label>
+        <input type="text" id="projectDescription" name="description" required>
+        <label for="projectDueDate">Due Date</label>
+        <input type="date" id="projectDueDate" name="dueDate" required min="1">
+        <label for="projectPriority">Priority Level</label>
         <select id="projectPriority" name="priority">
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -46,7 +49,7 @@
         </select>
       </form>
       <div class="buttonDiv">
-        <button id="closeAddProject" autofocus>Close</button>
+        <button id="closeAddProject" type="button" autofocus>Cancel</button>
         <button id="submitAddProject">Submit</button>
       </div>
     </dialog>
@@ -54,71 +57,69 @@
 
   <dialog id="addTaskDialog">
     <form action="" id="addTaskForm" novalidate>
-      <label for="taskTitle">Title:</label><br>
-      <input type="text" id="taskTitle" name="title" required><br>
-      <label for="taskDescription">Description:</label><br>
-      <input type="text" id="taskDescription" name="description" required><br>
-      <label for="taskDueDate">Due Date:</label><br>
-      <input type="date" id="taskDueDate" name="dueDate" required><br>
-      <label for="taskPriority">Priority:</label>
+      <label for="taskTitle">Title</label>
+      <input type="text" id="taskTitle" name="title" required>
+      <label for="taskDescription">Description</label>
+      <input type="text" id="taskDescription" name="description" required>
+      <label for="taskDueDate">Due Date</label>
+      <input type="date" id="taskDueDate" name="dueDate" required>
+      <label for="taskPriority">Priority</label>
       <select id="taskPriority" name="priority">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
         <option value="urgent">Urgent</option>
       </select>
-      <br>
-      <label for="taskNotes">Notes(optional):</label><br>
-      <textarea id="taskNotes" name="notes"></textarea><br>
-      <label for="taskListSelection">Task List:</label>
+      <label for="taskNotes">Notes(optional)</label>
+      <textarea id="taskNotes" name="notes"></textarea>
+      <label for="taskListSelection">Task List</label>
       <select id="taskListSelection">
         <option value="none">None (standalone task)</option>
-        <!-- Dynamic task lists will be populated here -->
+        <!-- dynamic task lists will be populated here -->
       </select>
-      <button id="addTaskListButton">+ New List</button><br>
+      <button id="addTaskListButton">+ New List</button>
       <div class="taskListInputDiv hidden">
         <input type="text" id="taskListInput" placeholder="Enter Task List Name">
         <button id="submitTaskList">✔</button>
     </div>
     </form>
     <div class="buttonDiv">
-      <button id="closeAddTask" autofocus>Close</button>
+      <button id="closeAddTask" type="button" autofocus>Cancel</button>
       <button id="submitAddTask">Submit</button>
     </div>
   </dialog>
 
   <dialog id="editTaskDialog">
     <form action="" id="editTaskForm" novalidate>
-      <label for="editTaskTitle">Title:</label><br>
-      <input type="text" id="editTaskTitle" name="title" required><br>
+      <label for="editTaskTitle">Title</label>
+      <input type="text" id="editTaskTitle" name="title" required>
   
-      <label for="editTaskDescription">Description:</label><br>
-      <input type="text" id="editTaskDescription" name="description" required><br>
+      <label for="editTaskDescription">Description</label>
+      <input type="text" id="editTaskDescription" name="description" required>
   
-      <label for="editTaskDueDate">Due Date:</label><br>
-      <input type="date" id="editTaskDueDate" name="dueDate" required><br>
+      <label for="editTaskDueDate">Due Date</label>
+      <input type="date" id="editTaskDueDate" name="dueDate" required>
   
-      <label for="editTaskPriority">Priority:</label>
+      <label for="editTaskPriority">Priority</label>
       <select id="editTaskPriority" name="priority">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
         <option value="urgent">Urgent</option>
-      </select><br>
+      </select>
   
-      <label for="editTaskNotes">Notes:</label><br>
-      <textarea id="editTaskNotes" name="notes"></textarea><br>
+      <label for="editTaskNotes">Notes</label>
+      <textarea id="editTaskNotes" name="notes"></textarea>
     </form>
   
     <div class="buttonDiv">
-      <button id="closeEditTask" autofocus>Cancel</button>
+      <button id="closeEditTask" type="button" autofocus>Cancel</button>
       <button id="submitEditTask">Submit</button>
     </div>
   </dialog>
 
-  <div id="content">  <!-- DOM content inserted here -->  </div>
+  <div id="content" class="projectGrid">  <!-- DOM content inserted here -->  </div>
+</main>
 
 </body>
-
-
 </html>

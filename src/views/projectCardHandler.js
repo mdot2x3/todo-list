@@ -92,17 +92,26 @@ export function toggleExpandProjectCard(event) {
             if (taskListUL) taskListUL.classList.add("hidden");
         });
 
-        // remove the placeholder
-        const placeholder = document.querySelector(".projectCardPlaceholder");
-        if (placeholder) placeholder.remove();
+        // trigger shrink animation
+        card.classList.add("shrinking");
 
-        // remove modal effects
-        card.classList.remove("expanded");
-        document.body.classList.remove("modalOpen");
+        // wait for animation to finish
+        setTimeout(() => {
+            card.classList.remove("shrinking", "expanded");
+            document.body.classList.remove("modalOpen");
 
-        // remove listeners
-        document.removeEventListener("click", closeOnOutsideClick);
-        document.removeEventListener("keydown", closeOnEscape);
+            // remove the placeholder
+            const placeholder = document.querySelector(".projectCardPlaceholder");
+            if (placeholder) placeholder.remove();
+
+            // remove modal effects
+            card.classList.remove("expanded");
+            document.body.classList.remove("modalOpen");
+
+            // remove listeners
+            document.removeEventListener("click", closeOnOutsideClick);
+            document.removeEventListener("keydown", closeOnEscape);
+        }, 250);
     }
 
     function closeOnOutsideClick(event) {

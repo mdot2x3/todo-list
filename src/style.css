@@ -4,23 +4,56 @@
 }
 
 body {
-  background-color: rebeccapurple;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  /* deep space blue-violet gradient base */
+  background: #0f0c29;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #f3f4f6;
   /* ensure the page is at least the full viewport */
   min-height: 100vh;
   /* allow scrolling */
   overflow-y: auto;
 }
 
-nav ul {
-  display: grid;
-  grid-template-columns: 150px 150px 150px;
-  justify-content: center;
+/* === navigation === */
+header {
+  background: #1e1b34;
+  padding: 1rem;
   text-align: center;
+  border-bottom: 1px solid #3a3a52;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
   padding: 0;
-  list-style-type: none;
+  margin: 0;
+}
+nav li {
+  cursor: pointer;
+  color: #a78bfa;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+nav li:hover {
+  color: #f472b6;
+}
+nav li.selected {
+  color: #f472b6;
+  border-bottom: 2px solid #f472b6;
 }
 
-#content {
+/* === main container === */
+.mainContainer {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* === project grid === */
+.projectGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
   justify-content: center;
@@ -36,36 +69,50 @@ nav ul {
 /* center dialog boxes on window, replaces former #addProjectDialog, #addTaskDialog, and #editTaskDialog */
 dialog {
   position: fixed;
-  top: 35%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
-  padding: 20px;
-  border-radius: 10px;
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  max-width: 500px;
+  color: #f3f4f6;
+  border-radius: 12px;
+  background: rgba(30, 27, 52, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease;
   z-index: 1000;
   max-height: 90vh;
   overflow-y: auto;
   pointer-events: auto;
 }
 
+/* === project card === */
 .projectCard {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 200px;
-  padding: 10px;
-  background: white;
-  border: 2px solid lawngreen;
-  border-radius: 8px;
-  /* needed for delete button positioning */
-  position: relative;
-  /* prevents card size expanding */
-  overflow: hidden;
+  background: #1e1b34;
+  border: 1px solid #3a3a52;
+  border-radius: 12px;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   cursor: pointer;
 }
-
+.projectCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+.projectCard h3 {
+  font-size: 1.2rem;
+  color: #a78bfa;
+}
+.projectCard p {
+  font-size: 0.90rem;
+  padding: 3px;
+}
+.projectCardBody strong {
+  color: #f472b6;
+}
 /* ensure text inside the card is left-aligned and 
 does not stretch beyond its container */
 .projectCard h3,
@@ -76,6 +123,36 @@ does not stretch beyond its container */
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+}
+
+/* === buttons === */
+#openAddProject {
+  background: #a78bfa;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+#openAddProject:hover {
+  background: #c084fc;
+}
+
+/* === delete button on cards === */
+#deleteProject {
+  float: right;
+  background: transparent;
+  border: none;
+  color: #f87171;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+#deleteProject:hover {
+  transform: scale(1.3);
+  color: #ef4444;
 }
 
 /* header section (title + delete button) */
@@ -96,31 +173,58 @@ does not stretch beyond its container */
   max-width: 80%; 
 }
 
-/* style the delete button */
-#deleteProject {
+/* === modal form layout === */
+dialog form {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+}
+dialog label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #a78bfa;
+}
+dialog input, dialog textarea, dialog select {
+  padding: 0.6rem 1rem;
+  background: #2a2645;
+  border: 1px solid #3a3a52;
+  border-radius: 8px;
+  color: #f3f4f6;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+dialog input:focus, dialog textarea:focus, dialog select:focus {
+  border-color: #c084fc;
+  outline: none;
+}
+
+/* === modal buttons === */
+dialog .buttonDiv {
+  display: flex;
   justify-content: center;
-  position: absolute;
-  top: 0px;
-  right: -3px;
-  background: red;
-  color: white;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+dialog button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
-  line-height: 0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+#closeAddProject, #closeAddTask, #closeEditTask {
+  background: #3a3a52;
+  color: #f3f4f6;
+}
+#submitAddProject, #submitAddTask, #submitEditTask {
+  background: #a78bfa;
+  color: #fff;
+}
+#submitAddProject:hover, #submitAddTask:hover, #submitEditTask:hover {
+  background: #c084fc;
 }
 
-#deleteProject:hover {
-  background: darkred;
-}
-
-/* modal-like background effect */
+/* === modal-like background effect === */
 .modalOpen::before {
   content: "";
   position: fixed;
@@ -131,12 +235,10 @@ does not stretch beyond its container */
   background: rgba(0, 0, 0, 0.5);
   z-index: 5;
 }
-
 .modalOpen {
   /* disable clicks on everything, inside and outside the card (reenabled specifically in .expanded below) */
   pointer-events: none;
 }
-
 .modalOpen #editTaskDialog {
   pointer-events: auto;
   /* above modal overlay and project card */
@@ -162,6 +264,35 @@ does not stretch beyond its container */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   /* enable clicks on the expanded card */
   pointer-events: auto;
+  /* animation transition from bottom-up */
+  transform-origin: center top;
+  animation: slideUpFade 0.3s ease-out;
+}
+@keyframes slideUpFade {
+  from {
+    transform: translate(-50%, 20%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0%);
+    opacity: 1;
+  }
+}
+
+.projectCard.shrinking {
+  animation: slideDownFade 250ms ease-in forwards;
+  pointer-events: none;
+}
+/* animation transition for shrinking project card top-down */
+@keyframes slideDownFade {
+  0% {
+    transform: scale(1) translate(-50%, 0%);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translate(-50%, 50%);
+    opacity: 0;
+  }
 }
 
 /* OVERRIDE: prevent text truncation on expanded card*/
@@ -184,7 +315,7 @@ does not stretch beyond its container */
   border: none;
 }
 
-/* style the minimize button */
+/* === style the minimize button === */
 #minimizeProject {
   display: flex;
   align-items: center;
@@ -203,31 +334,26 @@ does not stretch beyond its container */
   cursor: pointer;
   line-height: 0;
 }
-
 #minimizeProject:hover {
   background: grey;
 }
-
 /* hide minimize button */
 #minimizeProject.hidden {
   display: none;
 }
 
-/* ---task related settings--- */
-
+/* === task related settings === */
 .taskSection {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding-top: 10px;
 }
-
 /* remove automatic indent on li items */
 .taskSection ul {
   margin: 0px;
   padding: 0px;
 }
-
 #addTaskButton {
   background: dodgerblue;
   color: white;
@@ -236,27 +362,22 @@ does not stretch beyond its container */
   border-radius: 5px;
   cursor: pointer;
 }
-
 #addTaskButton:hover {
   background: royalblue;
 }
-
 /* hide task section */
 .taskSection.hidden {
   display: none;
 }
 
-/* add cog settings icon to task details section */
-
+/* === add cog settings icon to task details section === */
 .taskDetails {
   /* key point: this makes the child .settingsIcon absolute positioning relative to this specific div */
   position: relative;
 }
-
 .taskDetails p {
   padding-right: 1em;
 }
-
 .settingsIcon {
   position: absolute;
   top: 0.5em;
@@ -266,12 +387,11 @@ does not stretch beyond its container */
   color: #888;
   transition: color 0.3s ease;
 }
-
 .settingsIcon:hover {
   color: #333;
 }
 
-/* control task list select dropdown bar size */
+/* === control task list select dropdown bar size === */
 #taskListSelection {
   max-width: 100%;
   width: 100%;
@@ -293,9 +413,30 @@ does not stretch beyond its container */
   display: none;
 }
 
+/* === style the new list input line inside "+ New Task" modal === */
+.taskListInputDiv {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.taskListInputDiv input {
+  flex-grow: 1;
+  background: #2a2645;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+.taskListInputDiv button {
+  background: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-weight: bold;
+}
 
-/* ---(with above) all task list css settings--- */
-
+/* === (with above) all task list css settings === */
 .taskListHeader {
   display: flex;
   /* align all children to the top */
@@ -304,7 +445,6 @@ does not stretch beyond its container */
   width: 100%;
   cursor: pointer;
 }
-
 /* style all task list titles */
 .taskListHeader h5 {
   font-size: 25px;
@@ -313,7 +453,6 @@ does not stretch beyond its container */
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 /* when expanded, allow wrapping */
 .taskList.expanded .taskListHeader h5 {
   white-space: normal;
@@ -321,27 +460,23 @@ does not stretch beyond its container */
   text-overflow: unset;
   word-wrap: break-word;
 }
-
 /* adjust task list arrow to align with title */
 .taskListHeader .taskArrow {
   align-self: start;
 }
-
 /* rotate arrow down when expanded (specifically for task list arrow) */
 .taskList.expanded .taskListHeader .taskArrow {
   transform: rotate(90deg);
 }
-
 /* align tasks within task lists under the arrow */
 .taskSection .taskListItems {
   padding-left: 27px;
 }
-
 .taskListItems.hidden {
   display: none;
 }
 
-/* settings for task list delete button */
+/* === settings for task list delete button === */
 .deleteTaskListButton {
   background: red;
   color: white;
@@ -356,12 +491,11 @@ does not stretch beyond its container */
   cursor: pointer;
   line-height: 0;
 }
-
 .deleteTaskListButton:hover {
   background: darkred;
 }
 
-/* settings for task progress counter */
+/* === settings for task progress counter === */
 .taskProgressCounter {
   margin-top: 8px;
   margin-left: auto;
@@ -369,8 +503,7 @@ does not stretch beyond its container */
   color: #555;
 }
 
-/* ---all task item css settings--- */
-
+/* === all task item css settings === */
 /* entire task li gets the priority color as background, except checkbox area */
 .taskItem {
   display: flex;
@@ -382,7 +515,6 @@ does not stretch beyond its container */
   overflow: hidden;
   transition: all 0.3s ease;
 }
-
 /* priority background for each task li */
 .taskItem[data-priority="low"] .taskHeader    { background-color: #d0e7ff; }
 .taskItem[data-priority="medium"] .taskHeader { background-color: #fff3b0; }
@@ -402,7 +534,6 @@ does not stretch beyond its container */
   border-radius: 4px;
   position: relative;
 }
-
 .taskTitle {
   /* create ellipsis for long titles */
   white-space: nowrap;
@@ -413,12 +544,10 @@ does not stretch beyond its container */
   /* breaks long words if needed */
   word-break: break-word;
 }
-
-/* When expanded, allow wrapping but don’t shift the arrow */
+/* when expanded, allow wrapping but don’t shift the arrow */
 .taskItem.expanded .taskHeader {
   align-items: start;
 }
-
 /* when the task is expanded, remove ellipsis and allow wrapping */
 .taskItem.expanded .taskTitle {
   white-space: normal;
@@ -427,6 +556,7 @@ does not stretch beyond its container */
   word-wrap: break-word;
 }
 
+/* === task arrow settings === */
 .taskArrow {
   align-self: start;
   font-size: 16px;
@@ -435,12 +565,12 @@ does not stretch beyond its container */
   margin-top: 2px;
   transition: transform 0.3s ease;
 }
-
 /* rotate arrow down when expanded */
 .taskItem.expanded .taskHeader .taskArrow {
   transform: rotate(90deg);
 }
 
+/* === details drawer settings === */
 /* details drawer hidden by default */
 .taskDetails {
   max-height: 0;
@@ -451,7 +581,6 @@ does not stretch beyond its container */
   transition: all 0.3s ease;
   display: none;
 }
-
 /* expanded state reveals the drawer */
 .taskItem.expanded .taskDetails {
   /* adjust max-height depending on content */
@@ -466,30 +595,26 @@ does not stretch beyond its container */
   word-break: break-word;
 }
 
-/* ---settings for task checkbox--- */
-
+/* === settings for task checkbox === */
 .taskCheckbox {
   margin-right: 10px;
   margin-top: 6px;
   flex-shrink: 0;
   cursor: pointer;
 }
-
 .taskContent {
   flex-grow: 1;
   width: 100%;
 }
-
 .taskItem.completed .taskHeader {
   text-decoration: line-through;
   opacity: 0.6;
 }
-
 .taskItem.completed .taskDetails {
   opacity: 0.6;
 }
 
-/* settings for task delete button */
+/* === settings for task delete button === */
 .deleteTaskButton {
   background: red;
   color: white;
@@ -504,30 +629,41 @@ does not stretch beyond its container */
   cursor: pointer;
   line-height: 0;
 }
-
 .deleteTaskButton:hover {
   background: darkred;
 }
 
+/* === welcome modal === */
 #welcomeModal {
-  position: absolute;
-  top: 80px;
+  position: fixed;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 500px;
-  width: 90%;
-  background-color: white;
+  background: rgba(20, 18, 38, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid #3a3a52;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  z-index: 10;
+  color: #f3f4f6;
+  padding: 2rem;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  z-index: 1000;
+  animation: fadeIn 0.4s ease;
   text-align: center;
 }
-
 .welcomeContent h2 {
   margin-top: 0;
+  color: #a78bfa;
+}
+.welcomeContent p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
-.welcomeContent p {
-  margin: 10px 0;
+/* === responsive font === */
+@media (max-width: 600px) {
+  .projectCard {
+    font-size: 0.9rem;
+  }
 }
