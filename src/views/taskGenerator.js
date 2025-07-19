@@ -108,10 +108,22 @@ export function createTaskItemElement(taskItem) {
     taskDetails.classList.add("taskDetails");
     taskDetails.innerHTML = `
         <span class="settingsIcon">⚙</span>
-        <p><strong>Description:</strong> ${taskItem.description}</p>
-        <p><strong>Due Date:</strong> ${taskItem.dueDate}</p>
-        <p><strong>Priority:</strong> ${taskItem.priority}</p>
-        <p><strong>Notes:</strong> ${taskItem.notes}</p>
+        <div class="detailRow">
+        <i class="fa-solid fa-align-left"></i>
+        <div><span class="label">Description:</span><span class="value">${taskItem.description}</span></div>
+        </div>
+        <div class="detailRow">
+            <i class="fa-solid fa-calendar-days"></i>
+            <div><span class="label">Due Date:</span><span class="value">${taskItem.dueDate}</span></div>
+        </div>
+        <div class="detailRow">
+            <i class="fa-solid fa-flag"></i>
+            <div><span class="label">Priority:</span><span class="value">${taskItem.priority}</span></div>
+        </div>
+        <div class="detailRow">
+            <i class="fa-solid fa-note-sticky"></i>
+            <div><span class="label">Notes:</span><span class="value">${taskItem.notes}</span></div>
+        </div>
     `;
     
     taskContent.appendChild(taskHeader);
@@ -171,7 +183,7 @@ export function createTaskListElement(taskListId, taskListTitle) {
     deleteListButton.addEventListener("click", (e) => {
         e.stopPropagation();
         // confirm before delete
-        const confirmed = confirm("Delete this task list and all its tasks?");
+        const confirmed = confirm("Delete this task list and all its associated tasks?");
         if (!confirmed) return;
 
         const taskListId = taskListContainer.dataset.taskListId;

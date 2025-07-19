@@ -403,15 +403,17 @@ dialog button {
 }
 .settingsIcon {
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: 0.75rem;
+  right: 1rem;
   cursor: pointer;
-  font-size: 1.2em;
-  color: #888;
-  transition: color 0.3s ease;
+  font-size: 1.2rem;
+  color: var(--accent);
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
 }
 .settingsIcon:hover {
   color: #333;
+  opacity: 1;
 }
 
 /* === task list section === */
@@ -426,21 +428,21 @@ dialog button {
 }
 .unassignedTasks h4,
 .taskListContainer h4 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
   color: #a78bfa;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 .unassignedTasks h4::before {
-  /* fontawesome fa-tasks */
+  /* font awesome fa-tasks */
   content: "\f0ae";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
 }
 .taskListContainer h4::before {
-  /* fontawesome fa-list */
+  /* font awesome fa-list */
   content: "\f022"; 
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
@@ -485,11 +487,12 @@ dialog button {
   align-items: flex-start;
   gap: 5px;
   width: 100%;
+  margin-bottom: 12px;
   cursor: pointer;
 }
 /* style all task list titles */
 .taskListHeader h5 {
-  font-size: 25px;
+  font-size: 1.3rem;
   /* create ellipsis for long titles */
   white-space: nowrap;
   overflow: hidden;
@@ -520,21 +523,25 @@ dialog button {
 
 /* === settings for task list delete button === */
 .deleteTaskListButton {
-  background: red;
+  display: flex;
+  background: #ef4444;
+  border: 1px solid #f87171;
   color: white;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
+  font-size: 1rem;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding-top: 2px;
+  border-radius: 25%;
+  width: 22px;
   height: 20px;
   margin-top: 2px;
   margin-right: 6px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  line-height: 0;
+  line-height: 0.9;
 }
 .deleteTaskListButton:hover {
-  background: darkred;
+  transform: scale(1.1);
+  color: white;
 }
 
 /* === settings for task progress counter === */
@@ -550,12 +557,13 @@ dialog button {
 .taskItem {
   display: flex;
   align-items: flex-start;
+  position: relative;
   margin-bottom: 8px;
   list-style: none;
-  border-radius: 4px;
-  margin: 8px 0;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 /* priority background for each task li */
 .taskItem[data-priority="low"] .taskHeader    { background-color: #d0e7ff; }
@@ -569,7 +577,7 @@ dialog button {
   grid-template-columns: 1fr auto;
   align-items: start;
   gap: 10px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-weight: bold;
   cursor: pointer;
   background-color: var(--priority-color);
@@ -625,22 +633,57 @@ dialog button {
 }
 /* expanded state reveals the drawer */
 .taskItem.expanded .taskDetails {
-  /* adjust max-height depending on content */
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeSlideIn 0.25s ease;
   /* remove the height limit of the section */
   max-height: none;
   opacity: 1;
-  padding: 10px 15px;
   /* ensures long unbroken text wraps */
   overflow-wrap: break-word;
   /* breaks long words if needed */
   word-break: break-word;
 }
+.taskItem .detailRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+.taskItem .detailRow i {
+  color: var(--accent-light);
+  margin-top: 0.25rem;
+}
+.taskItem .label {
+  font-weight: 600;
+  margin-right: 0.25rem;
+  color: var(--text-primary);
+}
+.taskItem .value {
+  color: var(--text-secondary);
+  opacity: 0.85;
+}
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* === settings for task checkbox === */
 .taskCheckbox {
   margin-right: 10px;
-  margin-top: 6px;
+  margin-top: 12px;
   flex-shrink: 0;
   cursor: pointer;
 }
@@ -658,21 +701,26 @@ dialog button {
 
 /* === settings for task delete button === */
 .deleteTaskButton {
-  background: red;
-  color: white;
-  border: none;
-  border-radius: 50%;
+  display: flex;
+  background: transparent;
+  border: 1px solid #f87171;
+  color: #f87171;
+  font-size: 1rem;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding-top: 2px;
+  border-radius: 25%;
   width: 22px;
   height: 20px;
-  margin-top: 2px;
+  margin-top: 8px;
+  margin-left: 5px;
   margin-right: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  line-height: 0;
+  line-height: 0.9;
 }
 .deleteTaskButton:hover {
-  background: darkred;
+  transform: scale(1.1);
+  color: #ef4444;
 }
 
 /* === welcome modal === */
