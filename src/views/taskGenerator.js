@@ -103,6 +103,25 @@ export function createTaskItemElement(taskItem) {
     taskHeader.appendChild(titleSpan);
     taskHeader.appendChild(arrow);
 
+    // make sure date is formatted and ignores timezone offset
+    function formatDate(input) {
+        if (!input || typeof input !== "string") return input;
+
+        // expect input format "YYYY-MM-DD"
+        const [year, month, day] = input.split("-");
+        if (!year || !month || !day) return input;
+
+        // create a Date object in local time (note: month is 0-based)
+        const date = new Date(Number(year), Number(month) - 1, Number(day));
+
+        const formattedMonth = String(date.getMonth() + 1).padStart(2, "0");
+        const formattedDay = String(date.getDate()).padStart(2, "0");
+        const formattedYear = date.getFullYear();
+
+        return `${formattedMonth}/${formattedDay}/${formattedYear}`;
+        }
+    const formattedDueDate = formatDate(taskItem.dueDate);
+
     // hidden details drawer (initially collapsed)
     const taskDetails = document.createElement("div");
     taskDetails.classList.add("taskDetails");
@@ -114,11 +133,13 @@ export function createTaskItemElement(taskItem) {
         </div>
         <div class="detailRow">
             <i class="fa-solid fa-calendar-days"></i>
-            <div><span class="label">Due Date:</span><span class="value">${taskItem.dueDate}</span></div>
+            <div><span class="label">Due Date:</span><span class="value">${formattedDueDate}</span></div>
         </div>
         <div class="detailRow">
             <i class="fa-solid fa-flag"></i>
-            <div><span class="label">Priority:</span><span class="value">${taskItem.priority}</span></div>
+            <div><span class="label">Priority:</span>
+                <span class="priorityTag ${`priority-${taskItem.priority.toLowerCase()}`}">${taskItem.priority}</span>
+            </div>
         </div>
         <div class="detailRow">
             <i class="fa-solid fa-note-sticky"></i>
@@ -362,6 +383,9 @@ export function handleTaskListSubmission() {
         // create and store task list
         const newTaskList = createTaskList(title, projectId);
         console.log("Task List Created:", newTaskList);
+
+        // immediately render it in the UI
+        renderEmptyTaskList(projectId, newTaskList.id, newTaskList.title);
 
         // create <option> in dropdown
         const option = document.createElement("option");

@@ -144,6 +144,10 @@ export function toggleExpandProjectCard(event) {
     }
 
     function deleteCard(card) {
+        // confirm before delete
+        const confirmed = confirm("Are you sure you want to delete this project and all its tasks?");
+        if (!confirmed) return;
+
         // remove the placeholder if the card was expanded
         const placeholder = document.querySelector(".projectCardPlaceholder");
         if (placeholder) placeholder.remove();

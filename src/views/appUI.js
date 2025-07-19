@@ -94,6 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             addTaskDialog.showModal();
+            // start at top of modal when viewing on smaller window
+            addTaskDialog.scrollTop = 0;
         }
     });
 

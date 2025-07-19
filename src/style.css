@@ -132,7 +132,6 @@ does not stretch beyond its container */
   font-size: 0.85rem;
   font-weight: bold;
   color: white;
-  margin-top: 0.5rem;
 }
 .priority-low { background: #3b82f6; }
 .priority-medium { background: #facc15; color: #1e1b34; }
@@ -212,6 +211,16 @@ dialog input, dialog textarea, dialog select {
 dialog input:focus, dialog textarea:focus, dialog select:focus {
   border-color: #c084fc;
   outline: none;
+}
+
+/* project modal spacing */
+#addProjectForm input, select {
+  margin-bottom: 10px;
+}
+/* add task and edit task modal spacing */
+#addTaskForm input, #addTaskForm select, #addTaskForm textarea,
+#editTaskForm input, #editTaskForm select, #editTaskForm textarea {
+  margin-bottom: 10px;
 }
 
 /* === modal buttons === */
@@ -403,8 +412,8 @@ dialog button {
 }
 .settingsIcon {
   position: absolute;
-  top: 0.75rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.7rem;
   cursor: pointer;
   font-size: 1.2rem;
   color: var(--accent);
@@ -470,14 +479,16 @@ dialog button {
   border: 1px solid #555;
   border-radius: 6px;
   padding: 0.5rem 0.75rem;
+  /* stops appearance of new task list input from stretching modal */
+  width: 100%;
 }
 .taskListInputDiv button {
   background: #10b981;
   color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 0.5rem 0.75rem;
   font-weight: bold;
+  height: 36px;
 }
 
 /* === (with above) all task list css settings === */
@@ -655,10 +666,12 @@ dialog button {
   align-items: flex-start;
   gap: 0.75rem;
   font-size: 0.95rem;
+  /* prevent description text from overlapping cog icon on smaller window*/
+  padding-right: 10px;
 }
 .taskItem .detailRow i {
   color: var(--accent-light);
-  margin-top: 0.25rem;
+  margin-top: 0.1rem;
 }
 .taskItem .label {
   font-weight: 600;

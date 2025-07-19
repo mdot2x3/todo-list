@@ -12,6 +12,17 @@ export function saveToLocalStorage() {
     localStorage.setItem(STORAGE_KEY, rawData);
 }
 
+// make sure date is formatted and ignores timezone offset on rebuild
+function formatDueDateString(dateString) {
+    const date = new Date(dateString);
+    const adjustedDate = new Date(date.getTime() + Math.abs(date.getTimezoneOffset()) * 60000);
+    return adjustedDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    });
+}
+
 // load data from localStorage and populate projectStorage array
 export function loadFromLocalStorage() {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -24,7 +35,7 @@ export function loadFromLocalStorage() {
             const project = new Project(
                 projectObj.title,
                 projectObj.description,
-                new Date(projectObj.dueDate),
+                formatDueDateString(projectObj.dueDate),
                 projectObj.priority
             );
             project.id = projectObj.id;
@@ -34,7 +45,8 @@ export function loadFromLocalStorage() {
                 const task = new TaskItem(
                     taskObj.title,
                     taskObj.description,
-                    new Date(taskObj.dueDate),
+                    // don't format date here so edit task modal will prefill date properly
+                    taskObj.dueDate,
                     taskObj.priority,
                     taskObj.notes,
                     // taskListId will be null for unassigned tasks
@@ -61,7 +73,8 @@ export function loadFromLocalStorage() {
                         const task = new TaskItem(
                             taskObj.title,
                             taskObj.description,
-                            new Date(taskObj.dueDate),
+                            // don't format date here so edit task modal will prefill date properly
+                            taskObj.dueDate,
                             taskObj.priority,
                             taskObj.notes,
                             // set taskListId
